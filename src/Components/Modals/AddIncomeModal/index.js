@@ -39,6 +39,7 @@ const AddIncomeModal = (props) => {
         onSelect={onSelectDate}
         date={selectedDate}
         max={TODAY}
+        style={{zIndex: 99999999999}}
       />
       
 
