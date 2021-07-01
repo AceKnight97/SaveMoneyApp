@@ -1,18 +1,18 @@
-import {Datepicker} from '@ui-kitten/components';
+import { Datepicker } from '@ui-kitten/components';
 import moment from 'moment';
-import React, {useRef} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {SvgXml} from 'react-native-svg';
+import React, { useRef } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 import ButtonCT from '../../Components/Buttons/buttonCT';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
+import AddIncomeModal from '../../Components/Modals/AddIncomeModal';
 import DisplayMoney from '../../Components/UI/DisplayMoney';
-import {useMergeState} from '../../Helper/customHooks';
+import { TODAY } from '../../Constant';
+import { useMergeState } from '../../Helper/customHooks';
 import moneyIc from '../../Images/Components/MoneyBox/money.svg';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
 import JournalStyle from './_journal';
-import AddIncomeModal from '../../Components/Modals/AddIncomeModal'
-import { TODAY } from '../../Constant';
 
 
 const {f1_wh_100, mt16} = GlobalStyles;
@@ -64,7 +64,8 @@ const Journal = (props) => {
   };
 
   const toggleIncomeModal = () => {
-    setState({isOpenIncomeModal: !isOpenIncomeModal})
+    // setState({isOpenIncomeModal: !isOpenIncomeModal})
+    props.navigation.navigate('JournalAddIncome');
   };
 
   const renderBody = () => (

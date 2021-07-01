@@ -46,72 +46,63 @@ const styles = StyleSheet.create({
 const {centerC} = GlobalStyles;
 const {inputWrapper, inputCTMain, titleText, titleView, inputBasic} = styles;
 
-class InputCT extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      onFocus: false,
-    };
-  }
-  render() {
-    const {
-      title,
-      disabled,
-      autoFocus,
-      returnKeyType,
-      keyboardType,
-      style,
-      value,
-      isSecured,
-      multiline,
-      onChangeText,
-      maxLength,
-      placeholder,
-      inputStyle,
-      icon,
-      onSubmitEditing,
-    } = this.props;
+const InputCT = (props) => {
+  
+  const {
+    title,
+    disabled,
+    autoFocus,
+    returnKeyType,
+    keyboardType,
+    style,
+    value,
+    isSecured,
+    multiline,
+    onChangeText,
+    maxLength,
+    placeholder,
+    inputStyle,
+    icon,
+    onSubmitEditing,
+  } = props;
 
-    // const { onFocus } = this.state;
-
-    return (
-      <View style={[inputCTMain, style]}>
-        {title ? (
-          <View style={titleView}>
-            <Text style={titleText}>{title}</Text>
-          </View>
-        ) : null}
-
-        <View
-          style={[
-            inputWrapper,
-            value ? {borderBottomColor: colors.green1} : {},
-          ]}>
-          {icon ? <SvgXml xml={icon} style={{marginRight: 8}} /> : null}
-
-          <TextInput
-            editable={!disabled}
-            autoFocus={autoFocus}
-            // onBlur={() => this.setState({ onFocus: false })}
-            // onFocus={() => this.setState({ onFocus: true })}
-            returnKeyType={returnKeyType} // done or next
-            keyboardType={keyboardType}
-            secureTextEntry={isSecured}
-            multiline={multiline}
-            onChangeText={onChangeText}
-            maxLength={maxLength}
-            value={value}
-            style={[inputBasic, inputStyle]}
-            // fontStyle={fontStyle}
-            // placeholderStyle={[{}, placeholderStyle]}
-            // placeholderTextColor={defaultcolor || colors.gray1}
-            placeholder={placeholder}
-            onSubmitEditing={onSubmitEditing}
-          />
+  return (
+    <View style={[inputCTMain, style]}>
+      {title ? (
+        <View style={titleView}>
+          <Text style={titleText}>{title}</Text>
         </View>
+      ) : null}
+
+      <View
+        style={[
+          inputWrapper,
+          value ? {borderBottomColor: colors.green1} : {},
+        ]}>
+        {icon ? <SvgXml xml={icon} style={{marginRight: 8}} /> : null}
+
+        <TextInput
+          editable={!disabled}
+          autoFocus={autoFocus}
+          // onBlur={() => this.setState({ onFocus: false })}
+          // onFocus={() => this.setState({ onFocus: true })}
+          returnKeyType={returnKeyType} // done or next
+          keyboardType={keyboardType}
+          secureTextEntry={isSecured}
+          multiline={multiline}
+          onChangeText={onChangeText}
+          maxLength={maxLength}
+          value={value}
+          style={[inputBasic, inputStyle]}
+          // fontStyle={fontStyle}
+          // placeholderStyle={[{}, placeholderStyle]}
+          // placeholderTextColor={defaultcolor || colors.gray1}
+          placeholder={placeholder}
+          onSubmitEditing={onSubmitEditing}
+        />
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 InputCT.defaultProps = {

@@ -11,7 +11,7 @@ const {bah_wrapper, bah_title} = BottomAppHeaderStyle;
 const {JOURNAL, PROFILE} = BOTTOM_APP_NAME;
 
 const BottomAppHeader = (props) => {
-  const {style, currentTab, income} = props;
+  const {style, currentTab, income, title} = props;
 
   const renderRightContent = () => {
     switch (currentTab) {
@@ -36,7 +36,7 @@ const BottomAppHeader = (props) => {
   return (
     <View style={[bah_wrapper, style]}>
       <View>
-        <Text style={bah_title}>{`Hello Mr. Ace!`}</Text>
+        <Text style={bah_title}>{title||`Hello Mr. Ace!`}</Text>
       </View>
 
       {renderRightContent()}
@@ -47,10 +47,12 @@ const BottomAppHeader = (props) => {
 BottomAppHeader.defaultProps = {
   style: {},
   currentTab: '',
+  title: '',
 };
 BottomAppHeader.propTypes = {
   style: PropTypes.shape(),
   currentTab: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default BottomAppHeader;

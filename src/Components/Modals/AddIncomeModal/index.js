@@ -32,6 +32,16 @@ const AddIncomeModal = (props) => {
   const onSelectDate = (selectedDate) => {
     setState({selectedDate});
   };
+
+  const filter = inputValue => rmaInfoList.filter(option => {
+    const caiMuonBietLaGi = option.value.valueOf(state.searchType);
+    console.log({
+      searchType: state.searchType,
+      caiMuonBietLaGi,
+    })
+    return caiMuonBietLaGi.toLowerCase().includes(inputValue.toLowerCase())
+  });
+
   
   const renderBody = () => (
     <View style={p24}>
