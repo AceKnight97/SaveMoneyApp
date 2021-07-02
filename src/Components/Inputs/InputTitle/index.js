@@ -11,7 +11,9 @@ main, titleStyle
 const InputTitle = (props) => {
   
   const {    title, style } = props;
-
+  if (!title) {
+    return null;
+}
   return (
     <View style={[main, style]}>
       <Text style={titleStyle}>{title}</Text>
