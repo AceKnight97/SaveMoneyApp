@@ -1,20 +1,19 @@
-import { Datepicker } from '@ui-kitten/components';
 import moment from 'moment';
-import React, { useRef } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { SvgXml } from 'react-native-svg';
+import React, {useRef} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {SvgXml} from 'react-native-svg';
 import ButtonCT from '../../Components/Buttons/buttonCT';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import DisplayMoney from '../../Components/UI/DisplayMoney';
-import { TODAY } from '../../Constant';
-import { useMergeState } from '../../Helper/customHooks';
+import {TODAY} from '../../Constant';
+import {useMergeState} from '../../Helper/customHooks';
 import moneyIc from '../../Images/Components/MoneyBox/money.svg';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
 import JournalStyle from './_journal';
+import DatepickerCT from '../../Components/Inputs/DatepickerCT';
 
-
-const {f1_wh_100, mt16} = GlobalStyles;
+const {f1_wh_100, mt16, w_100} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
 const {
   journal_selected_day,
@@ -51,12 +50,11 @@ const Journal = (props) => {
 
   const {logs, income, notes, date} = dailyInfo;
 
-  const onSelectDate = (selectedDate) => {
-    setState({selectedDate});
+  const onChange = (key, value) => {
+    setState({[key]: value});
   };
 
-  const onCloseAddMoneyModal = () => {
-  }
+  const onCloseAddMoneyModal = () => {};
 
   const onPressDetail = () => {
     props.navigation.navigate('JournalDetails', {date});
@@ -75,10 +73,11 @@ const Journal = (props) => {
           : 'Select a date'}
       </Text>
 
-      <Datepicker
+      <DatepickerCT
         style={mt16}
-        onSelect={onSelectDate}
-        date={selectedDate}
+        name="selectedDate"
+        onChange={onChange}
+        value={selectedDate}
         max={TODAY}
       />
 
@@ -92,7 +91,7 @@ const Journal = (props) => {
         <DisplayMoney style={{marginVertical: 16}} />
 
         <ButtonCT
-          style={{width: '100%'}}
+          style={w_100}
           UserTextStyle={{fontWeight: 'bold', fontSize: 16}}
           type="LINEAR"
           title={logs.length !== 0 ? 'Edit spending' : 'Add spending'}
@@ -104,16 +103,16 @@ const Journal = (props) => {
 
   return (
     <>
-    <View style={f1_wh_100}>
-      <BottomAppHeader currentTab="Journal" />
+      <View style={f1_wh_100}>
+        <BottomAppHeader currentTab="Journal" />
 
-      <View style={bottom_App_Body}>{renderBody()}</View>
+        <View style={bottom_App_Body}>{renderBody()}</View>
 
-      <TouchableOpacity style={journal_income} onPress={toggleIncomeModal}>
-        <Text style={journal_income_title}>Income</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={journal_income} onPress={toggleIncomeModal}>
+          <Text style={journal_income_title}>Income</Text>
+        </TouchableOpacity>
       </View>
-      </>
+    </>
   );
 };
 

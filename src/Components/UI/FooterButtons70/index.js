@@ -11,13 +11,14 @@ const {main, rightBtn} = FooterButtons70Style;
 const FooterButtons70 = (props) => {
   const {
     style,
-
     leftTitle,
     rightTitle,
     leftStyle,
     rightStyle,
     leftOnPress,
     rightOnPress,
+    loading,
+    disabled,
   } = props;
 
   return (
@@ -27,6 +28,7 @@ const FooterButtons70 = (props) => {
         title={leftTitle}
         style={leftStyle}
         onPress={leftOnPress}
+        disabled={loading}
       />
       <View style={rightBtn}>
         <ButtonCT
@@ -39,6 +41,7 @@ const FooterButtons70 = (props) => {
           title={rightTitle}
           style={rightStyle}
           onPress={rightOnPress}
+          disabled={disabled}
         />
       </View>
     </View>
@@ -52,6 +55,8 @@ FooterButtons70.defaultProps = {
   rightStyle: {},
   leftOnPress: () => {},
   rightOnPress: () => {},
+  loading: false,
+  disabled: false,
 };
 FooterButtons70.propTypes = {
   style: PropTypes.shape(),
@@ -61,6 +66,8 @@ FooterButtons70.propTypes = {
   rightStyle: PropTypes.shape(),
   leftOnPress: PropTypes.func,
   rightOnPress: PropTypes.func,
+  loading: PropTypes.bool,
+  diasbled: PropTypes.bool,
 };
 
 export default FooterButtons70;

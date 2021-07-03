@@ -29,6 +29,7 @@ const InputCTStyle = StyleSheet.create({
     fontSize: 14,
     color: 'black',
     textAlignVertical: 'top',
+    flex: 1,
   },
   titleText: {
     color: 'black',

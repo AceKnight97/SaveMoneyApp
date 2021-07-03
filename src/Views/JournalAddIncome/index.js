@@ -1,41 +1,34 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View} from 'react-native';
+import {Image, KeyboardAvoidingView, ScrollView, View} from 'react-native';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import DatepickerCT from '../../Components/Inputs/DatepickerCT';
 import InputCT from '../../Components/Inputs/InputCT';
 import FooterButtons70 from '../../Components/UI/FooterButtons70';
 import {TODAY} from '../../Constant';
 import {useMergeState} from '../../Helper/customHooks';
+import incomeIc from '../../Images/Pages/Journal/income.jpg';
 import GlobalStyles from '../../Styles';
-import ViewsStyle from '../Style';
 import JournalAddIncomeStyle from './_journalAddIncome';
 
-const {f1_wh_100, mt16, mt36} = GlobalStyles;
-const {bottom_App_Body} = ViewsStyle;
-const {main} = JournalAddIncomeStyle;
-
-const STATUS = {
-  ADD: 'ADD',
-  EDIT: 'EDIT',
-  DISPLAY: 'DISPLAY',
-};
-
-const {ADD, EDIT, DISPLAY} = STATUS;
+const {f1_wh_100, mt16, mt24, mt36} = GlobalStyles;
+const {main, income_icon, wrapper} = JournalAddIncomeStyle;
 
 const JournalAddIncome = (props) => {
   const [state, setState] = useMergeState({
     date: new Date(),
     income: 0,
     notes: '',
+    loading: false,
   });
-  const {style} = props;
 
-  const {date, income, notes} = state;
-
-  const onSelectDate = (date) => {
-    setState({date});
+  const onPressGoBack = () => {
+    props.navigation.goBack();
   };
+
+  const onPressAdd = async () => {};
+
+  const {date, income, notes, loading} = state;
 
   const onChange = (key, value) => {
     setState({[key]: value});
@@ -43,15 +36,17 @@ const JournalAddIncome = (props) => {
 
   const renderBody = () => (
     <View style={main}>
+      <Image source={incomeIc} style={income_icon} />
+
       <DatepickerCT
-        style={mt16}
+        title="Date"
         name="date"
         onChange={onChange}
         value={date}
         maxDate={TODAY}
       />
       <InputCT
-        style={mt36}
+        style={mt24}
         name="income"
         value={income}
         title="Income"
@@ -60,7 +55,7 @@ const JournalAddIncome = (props) => {
         type="NUMBER"
       />
       <InputCT
-        style={mt36}
+        style={mt24}
         name="notes"
         value={notes}
         title="Notes"
@@ -75,26 +70,29 @@ const JournalAddIncome = (props) => {
     <View style={f1_wh_100}>
       <BottomAppHeader title="Add your income" />
 
-      <View
-        style={[
-          bottom_App_Body,
-          {
-            justifyContent: 'space-between',
-          },
-        ]}>
-        {renderBody()}
+      <KeyboardAvoidingView enabled>
+        <ScrollView>
+          <View style={wrapper}>
+            {renderBody()}
 
-        <FooterButtons70 leftTitle="Cancel" rightTitle="Add" />
-      </View>
+            <FooterButtons70
+              leftTitle="Cancel"
+              rightTitle="Add"
+              leftOnPress={onPressGoBack}
+              rightOnPress={onPressAdd}
+              loading={loading}
+              disabled={!date || !income}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
 JournalAddIncome.defaultProps = {
-  style: {},
   logs: [],
 };
 JournalAddIncome.propTypes = {
-  style: PropTypes.shape(),
   logs: PropTypes.arrayOf(PropTypes.shape()),
 };
 
