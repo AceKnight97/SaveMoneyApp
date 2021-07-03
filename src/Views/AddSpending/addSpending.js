@@ -7,11 +7,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import GlobalStyles from '../../Styles';
 import {calcMoney, getMoneyAndSess, saveTodayNote} from '../../Ulti';
 import {Today, Sessions} from '../../Constant';
-import InputCT from '../../Components/Inputs/inputCT';
+import InputCT from '../../Components/Inputs/InputCT';
 import ButtonCT from '../../Components/Buttons/buttonCT';
 import moneyBag from '../../Images/AddSpending/moneyBag.svg';
-import { colors } from '../../Constant/color';
-import AddSpendingStyles from '../../Styles/AddingPages/addSpending'
+import {colors} from '../../Constant/color';
+import AddSpendingStyles from '../../Styles/AddingPages/addSpending';
 
 const {frsb, flexJusCent} = GlobalStyles;
 const {mainView, wrapper, header, body, headerMainView} = AddSpendingStyles;
@@ -46,8 +46,14 @@ class AddSpending extends Component {
 
   setDefaultData = async () => {
     const date = this.props.navigation.getParam('date', Today); // from Add Spending use ONCE
-    const { money, MORNING, AFTERNOON, NIGHT } = await getMoneyAndSess(date);
-    console.log('money, MORNING, AFTERNOON, NIGHT: ',money, MORNING, AFTERNOON, NIGHT)
+    const {money, MORNING, AFTERNOON, NIGHT} = await getMoneyAndSess(date);
+    console.log(
+      'money, MORNING, AFTERNOON, NIGHT: ',
+      money,
+      MORNING,
+      AFTERNOON,
+      NIGHT,
+    );
     this.setState({dailyMoney: money, MORNING, AFTERNOON, NIGHT, date});
   };
 
@@ -89,9 +95,9 @@ class AddSpending extends Component {
     console.log('sessionData: ', sessionData);
     _.forEach(sessionData, (y) => {
       _.forEach(y, (x) => {
-        if(x.money)    console.log('sessionData values: ', x)
-      })
-    })
+        if (x.money) console.log('sessionData values: ', x);
+      });
+    });
     return (
       <View style={body}>
         {_.map(Sessions, (x, i) => (
@@ -104,7 +110,7 @@ class AddSpending extends Component {
                 data: sessionData[i],
                 update: (updatedData) => {
                   console.log('updatedData: ', updatedData);
-                  console.log('[x]: ',x)
+                  console.log('[x]: ', x);
                   this.setState({[x]: updatedData});
                 },
               })

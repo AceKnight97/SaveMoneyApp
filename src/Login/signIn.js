@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {StyleSheet, View, Text} from 'react-native';
 import ButtonCT from '../Components/Buttons/buttonCT';
 import {connect} from 'react-redux';
-import InputCT from '../Components/Inputs/inputCT';
+import InputCT from '../Components/Inputs/InputCT';
 import gql from 'graphql-tag';
 import emailIc from '../Images/Login/email.svg';
 import emailActIc from '../Images/Login/emailAct.svg';
@@ -65,7 +65,7 @@ const SignIn = (props) => {
   };
 
   const onChange = (key, value) => {
-    setState({emailErr: '', passwordErr: '', [key]: value});
+    setState({[key]: value, emailErr: '', passwordErr: ''});
   };
 
   const {signInMain, lowBody} = styles;
@@ -77,8 +77,9 @@ const SignIn = (props) => {
         <View style={flexColumn}>
           <InputCT
             title="Email"
+            name="email"
             value={email}
-            onChangeText={(email) => onChange('email', email)}
+            onChange={onChange}
             placeholder="Email"
             icon={email ? emailActIc : emailIc}
             onSubmitEditing={() => {
@@ -91,8 +92,9 @@ const SignIn = (props) => {
           <InputCT
             style={mt24}
             title="Password"
+            name="password"
             value={password}
-            onChangeText={(password) => onChange('password', password)}
+            onChange={onChange}
             placeholder="Password"
             icon={password ? pswActIc : pswIc}
             isSecured

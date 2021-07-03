@@ -62,6 +62,14 @@ const flexBox = StyleSheet.create({
     backgroundColor: 'white',
     // padding: '5%',
   },
+  textAlignC: {
+    textAlign: 'center',
+  },
+
+  // WH
+  w_100: {
+    width: '100%',
+  },
 });
 
 export default flexBox;

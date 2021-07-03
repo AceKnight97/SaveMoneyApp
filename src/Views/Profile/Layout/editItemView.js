@@ -6,7 +6,7 @@ import TextInputMask from 'react-native-text-input-mask';
 import {StyleSheet, Text, View} from 'react-native';
 import GlobalStyles from '../../../Styles';
 import {colors} from '../../../Constant/color';
-import InputCT from '../../../Components/Inputs/inputCT';
+import InputCT from '../../../Components/Inputs/InputCT';
 // import {isTheSameObj} from '../../Ulti';
 // import MultipleLines from '../../Components/Inputs/multipleLines';
 // import IconButton from '../../Components/Buttons/iconButton';

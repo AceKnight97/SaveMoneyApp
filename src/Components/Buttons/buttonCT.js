@@ -14,8 +14,7 @@ import {colors, colorsLinear} from '../../Constant/color';
 import GlobalStyles from '../../Styles';
 
 const {flexRowAligCent} = GlobalStyles;
-const { gray1, green, green0, green00, field, gray3
-,red2} = colors;
+const {gray1, green, green0, green00, field, gray3, red2} = colors;
 const {lush} = colorsLinear;
 
 const styles = StyleSheet.create({
@@ -91,12 +90,12 @@ class ButtonCT extends Component {
       title,
       onPress,
       style,
-      UserTextStyle,
+      userTextStyle,
       disabled,
       type,
       mainViewStyle,
       colorsCT,
-      isDanger
+      isDanger,
     } = this.props;
 
     let colorCT = ['transparent', 'transparent'];
@@ -153,13 +152,13 @@ class ButtonCT extends Component {
             end={{x: 1, y: 1}}
             colors={colorCT}
             style={[buttonCTMain, btnView, style]}>
-            <Text style={[basicText, textStyle, UserTextStyle]}>{title}</Text>
+            <Text style={[basicText, textStyle, userTextStyle]}>{title}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
         <View
           style={[onPressBasView, buttonCTMain, btnView, onPressView, style]}>
-          <Text style={[basicText, UserTextStyle, onPressText, ]}>{title}</Text>
+          <Text style={[basicText, userTextStyle, onPressText]}>{title}</Text>
         </View>
       </View>
     );
@@ -169,7 +168,7 @@ ButtonCT.defaultProps = {
   title: '',
   onPress: () => {},
   style: {},
-  UserTextStyle: {},
+  userTextStyle: {},
   disabled: false,
   type: '',
   colorsCT: [],
@@ -179,7 +178,7 @@ ButtonCT.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
   style: PropTypes.shape(),
-  UserTextStyle: PropTypes.shape(),
+  userTextStyle: PropTypes.shape(),
   disabled: PropTypes.bool,
   type: PropTypes.string,
   colorsCT: PropTypes.arrayOf(PropTypes.string),

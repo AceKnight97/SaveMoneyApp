@@ -5,7 +5,6 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import ButtonCT from '../../Components/Buttons/buttonCT';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
-import AddIncomeModal from '../../Components/Modals/AddIncomeModal';
 import DisplayMoney from '../../Components/UI/DisplayMoney';
 import { TODAY } from '../../Constant';
 import { useMergeState } from '../../Helper/customHooks';
@@ -114,11 +113,6 @@ const Journal = (props) => {
         <Text style={journal_income_title}>Income</Text>
       </TouchableOpacity>
       </View>
-
-      <AddIncomeModal
-        isVisible={isOpenIncomeModal}
-        onRequestClose={toggleIncomeModal}
-      />
       </>
   );
 };

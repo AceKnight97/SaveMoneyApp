@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import LoginFrame from './Layout/loginFrame';
 import GlobalStyles from '../Styles';
-import { colors } from '../Constant/color';
+import {colors} from '../Constant/color';
 
-import InputCT from '../Components/Inputs/inputCT';
-import ButtonCT from '../Components/Buttons/buttonCT'
+import InputCT from '../Components/Inputs/InputCT';
+import ButtonCT from '../Components/Buttons/buttonCT';
 
 const styles = StyleSheet.create({
   veriFyCodeMain: {
     flex: 1,
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   lowBody: {
     marginTop: 40,
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 class VerifyCode extends Component {
   constructor(props) {
@@ -31,34 +31,34 @@ class VerifyCode extends Component {
   }
 
   showFooter = () => {
-    const { flexRowAligCent } = GlobalStyles;
+    const {flexRowAligCent} = GlobalStyles;
     return (
-      <View style={{ paddingHorizontal: 24 }}>
+      <View style={{paddingHorizontal: 24}}>
         <ButtonCT
-          type='ROUND'
+          type="ROUND"
           style={{}}
-          title='Back to sign in'
+          title="Back to sign in"
           onPress={() => this.props.navigation.navigate('SignIn')}
         />
       </View>
-    )
-  }
+    );
+  };
 
-  onChangeState = (key, value) => this.setState({ emailErr: '', passwordErr: '', [key]: value })
+  onChangeState = (key, value) =>
+    this.setState({emailErr: '', passwordErr: '', [key]: value});
 
   render() {
-    const { mt24, frsb } = GlobalStyles;
-    const { veriFyCodeMain, lowBody } = styles;
-    const { email, password } = this.state;
+    const {mt24, frsb} = GlobalStyles;
+    const {veriFyCodeMain, lowBody} = styles;
+    const {email, password} = this.state;
     return (
       <View style={veriFyCodeMain}>
-        <LoginFrame
-          style={{}}
-          showFooter={this.showFooter}
-        >
-          <View style={{ display: 'flex', flexDirection: 'column' }}>
-            <View style={{ marginBottom: 24 }}>
-              <Text style={{ color: colors.blue1 }}>The code is sent to your email.</Text>
+        <LoginFrame style={{}} showFooter={this.showFooter}>
+          <View style={{display: 'flex', flexDirection: 'column'}}>
+            <View style={{marginBottom: 24}}>
+              <Text style={{color: colors.blue1}}>
+                The code is sent to your email.
+              </Text>
             </View>
 
             <InputCT
@@ -71,18 +71,17 @@ class VerifyCode extends Component {
 
             <View style={[frsb, lowBody]}>
               <ButtonCT
-                type='NONE'
-                mainViewStyle={{ marginLeft: -24 }}
-                title='Resend code'
+                type="NONE"
+                mainViewStyle={{marginLeft: -24}}
+                title="Resend code"
               />
               <ButtonCT
-                type='LINEAR'
+                type="LINEAR"
                 // style={{ width: 100, }}
-                title='Verify'
+                title="Verify"
                 onPress={() => this.props.navigation.navigate('DoneLogin')}
               />
             </View>
-
           </View>
         </LoginFrame>
       </View>

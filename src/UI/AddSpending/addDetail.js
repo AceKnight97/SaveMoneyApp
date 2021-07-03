@@ -6,7 +6,7 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import GlobalStyles from '../../Styles';
 import {colors} from '../../Constant/color';
 import {isTheSameObj} from '../../Ulti';
-import InputCT from '../../Components/Inputs/inputCT';
+import InputCT from '../../Components/Inputs/InputCT';
 import MultipleLines from '../../Components/Inputs/multipleLines';
 import IconButton from '../../Components/Buttons/iconButton';
 import checkActIc from '../../Images/Basic/checkAct.svg';
@@ -87,7 +87,7 @@ class AddDetail extends Component {
   onChangeState = (key, value) => this.setState({[key]: value});
 
   showBody = () => {
-    const { money, details } = this.state;
+    const {money, details} = this.state;
     return (
       <View style={body}>
         <InputCT

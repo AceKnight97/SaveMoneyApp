@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import LoginFrame from './Layout/loginFrame';
 import GlobalStyles from '../Styles';
-import InputCT from '../Components/Inputs/inputCT';
-import ButtonCT from '../Components/Buttons/buttonCT'
+import InputCT from '../Components/Inputs/InputCT';
+import ButtonCT from '../Components/Buttons/buttonCT';
 
 const styles = StyleSheet.create({
   SignUpMain: {
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   lowBody: {
     marginTop: 40,
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 class SignUp extends Component {
   constructor(props) {
@@ -29,71 +29,83 @@ class SignUp extends Component {
   }
 
   showFooter = () => {
-    const { flexRowAligCent } = GlobalStyles;
+    const {flexRowAligCent} = GlobalStyles;
     return (
-      <View style={{ paddingHorizontal: 24 }}>
+      <View style={{paddingHorizontal: 24}}>
         <ButtonCT
-          type='ROUND'
+          type="ROUND"
           style={{}}
-          title='Back to sign in'
+          title="Back to sign in"
           onPress={() => this.props.navigation.navigate('SignIn')}
         />
       </View>
-    )
-  }
+    );
+  };
 
-  onChangeState = (key, value) => this.setState({ emailErr: '', passwordErr: '', confirmPasswordErr: '', [key]: value })
+  onChangeState = (key, value) =>
+    this.setState({
+      emailErr: '',
+      passwordErr: '',
+      confirmPasswordErr: '',
+      [key]: value,
+    });
 
   render() {
-    const { mt24, frsb, mt12 } = GlobalStyles;
-    const { SignUpMain, lowBody } = styles;
-    const { email, password, confirmPassword } = this.state;
+    const {mt24, frsb, mt12} = GlobalStyles;
+    const {SignUpMain, lowBody} = styles;
+    const {email, password, confirmPassword} = this.state;
     return (
       <View style={SignUpMain}>
-        <LoginFrame
-          style={{}}
-          showFooter={this.showFooter}
-        >
-          <View style={{ display: 'flex', flexDirection: 'column' }}>
+        <LoginFrame style={{}} showFooter={this.showFooter}>
+          <View style={{display: 'flex', flexDirection: 'column'}}>
             <InputCT
-
               value={email}
               onChangeText={(email) => this.onChangeState('email', email)}
               placeholder="Email"
-
-              onSubmitEditing={() => { this.nextInput1.focus(); }}
+              onSubmitEditing={() => {
+                this.nextInput1.focus();
+              }}
               returnKeyType="next"
               keyboardType="email-address"
             />
 
             <InputCT
               value={password}
-              onChangeText={(password) => this.onChangeState('password', password)}
+              onChangeText={(password) =>
+                this.onChangeState('password', password)
+              }
               placeholder="Password"
               isSecured
-              onRef={(nextInput1) => { this.nextInput1 = nextInput1; }}
+              onRef={(nextInput1) => {
+                this.nextInput1 = nextInput1;
+              }}
               returnKeyType="next"
-              onSubmitEditing={() => { this.nextInput2.focus(); }}
+              onSubmitEditing={() => {
+                this.nextInput2.focus();
+              }}
             />
 
             <InputCT
               value={confirmPassword}
-              onChangeText={(confirmPassword) => this.onChangeState('confirmPassword', confirmPassword)}
+              onChangeText={(confirmPassword) =>
+                this.onChangeState('confirmPassword', confirmPassword)
+              }
               placeholder="Confirm password"
               isSecured
-              onRef={(nextInput2) => { this.nextInput2 = nextInput2; }}
+              onRef={(nextInput2) => {
+                this.nextInput2 = nextInput2;
+              }}
               returnKeyType="done"
             />
             <View style={[frsb, lowBody]}>
               <View />
               <ButtonCT
-                type='LINEAR'
+                type="LINEAR"
                 // style={{ width: 100, }}
-                title='Sign up'
+                title="Sign up"
                 onPress={() => this.props.navigation.navigate('VerifyCode')}
               />
             </View>
-
           </View>
         </LoginFrame>
       </View>
