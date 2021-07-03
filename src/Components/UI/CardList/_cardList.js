@@ -1,13 +1,21 @@
 import {StyleSheet} from 'react-native';
+import {screenW} from '../../../Constant';
 
 const CardListStyle = StyleSheet.create({
   main: {
-    flex: 1,
-    paddingTop: 24,
+    width: screenW,
+    padding: 24,
+  },
+  wrapper: {
     display: 'flex',
-    // flexWrap: 'wrap',
-    // width: '100%',
-    // backgroundColor: 'green',
+    flexDirection: 'column',
+    // height: screenH - 72,
+    marginBottom: 24,
+  },
+  list_view: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 24,
   },
 });
 export default CardListStyle;

@@ -1,22 +1,21 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
+import {ALL_FIELDS, CreateColors} from '../../../Constant';
 import {useMergeState} from '../../../Helper/customHooks';
 import InputCT from '../../Inputs/InputCT';
+import DetailCard from '../CardItem';
 import CardListStyle from './_cardList';
-import CardItem from '../CardItem';
-import DetailCard from '../../../Views/AddSpending/detailCard';
-import {ALL_FIELDS, CreateColors, screenH, screenW} from '../../../Constant';
 
-const {main} = CardListStyle;
+const {main, wrapper, list_view} = CardListStyle;
 
 const CardList = (props) => {
   const [state, setState] = useMergeState({
     formatedData: [],
     searchText: '',
   });
-  const {style, logs, onClick, isReviewing} = props;
+  const {style, logs, onPress, isReviewing} = props;
   const {searchText, formatedData} = state;
 
   const getFormatedLogs = () => {
@@ -62,39 +61,15 @@ const CardList = (props) => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={[
-        {
-          // flex: 1,
-          // height: screenH - 72 - 64 - 99,
-          width: screenW,
-          padding: 24,
-        },
-        style,
-      ]}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          // height: screenH - 72,
-          marginBottom: 24,
-        }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={[main, style]}>
+      <View style={wrapper}>
         <InputCT
           name="searchText"
           value={searchText}
           onChange={onChange}
           placeholder="Search..."
         />
-        <View
-          style={[
-            {
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              marginVertical: 24,
-            },
-            // isComplete ? {} : {paddingBottom: 24, marginBottom: 24},
-          ]}>
+        <View style={list_view}>
           {_.map(
             searchText
               ? _.filter(formatedData, (item) =>
@@ -104,7 +79,6 @@ const CardList = (props) => {
             (x, i) => (
               <DetailCard
                 key={i}
-                style={{}}
                 data={x}
                 wrapperSty={{
                   marginLeft: i % 3 !== 0 ? 6 : 0,
@@ -123,13 +97,13 @@ const CardList = (props) => {
 CardList.defaultProps = {
   style: {},
   logs: [],
-  onClick: () => {},
+  onPress: () => {},
   isReviewing: false,
 };
 CardList.propTypes = {
   style: PropTypes.shape(),
   logs: PropTypes.arrayOf(PropTypes.shape()),
-  onClick: PropTypes.func,
+  onPress: PropTypes.func,
   isReviewing: PropTypes.bool,
 };
 

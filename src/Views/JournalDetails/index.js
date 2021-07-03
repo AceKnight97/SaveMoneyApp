@@ -38,11 +38,14 @@ const JournalDetails = (props) => {
   console.log({date});
   const {style} = props;
 
-  const {cardItem, logs} = state;
+  const {cardItem, logs, isReviewing, isDisplay} = state;
 
   const onChange = (key, value) => {
     setState({[key]: value});
   };
+
+  const onPressCardItem = () => {};
+
   return (
     <View style={f1_wh_100}>
       <BottomAppHeader
@@ -52,27 +55,10 @@ const JournalDetails = (props) => {
       />
 
       <CardList
-        style={
-          {
-            // marginTop: 24,
-            // justifyContent: 'center',
-            // backgroundColor: 'green',
-          }
-        }
+        logs={logs}
+        onPress={onPressCardItem}
+        isReviewing={isReviewing || isDisplay}
       />
-      {/* <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={main}>
-          <CardList />
-        </View>
-      </ScrollView> */}
-
-      {/* <KeyboardAvoidingView enabled>
-        <ScrollView>
-          <View style={wrapper}>
-            
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView> */}
     </View>
   );
 };

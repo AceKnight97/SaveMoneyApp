@@ -1,37 +1,43 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {Text, View, TouchableOpacity} from 'react-native';
-import _ from 'lodash';
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useMergeState} from '../../../Helper/customHooks';
+import GlobalStyles from '../../../Styles';
 import CardItemStyle from './_cardItem';
 
-const {main, title_style, money_style} = CardItemStyle;
+const {
+  main,
+  title_style,
+  money_style,
+  mainView,
+  touchSty,
+  colorWhite,
+} = CardItemStyle;
+
+const {hitSlop10} = GlobalStyles;
 
 const CardItem = (props) => {
-  const [state, setState] = useMergeState({
-    data: [],
-  });
+  const {style, data, wrapperSty, colors} = props;
 
-  const {style, data} = props;
+  const {title, money} = data;
 
-  const {title, money, details, sessions} = data;
-
-  const onClick = () => {
+  const onPress = () => {
     props.onClick(data);
   };
 
   return (
-    <TouchableOpacity style={[main, style]} onClick={onClick}>
+    <TouchableOpacity
+      hitSlop={hitSlop10}
+      onPress={onPress}
+      style={[touchSty, wrapperSty]}>
       <LinearGradient
-        // style={touchSty}
+        style={touchSty}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
-        colors={props.colors}>
-        <View>
+        colors={colors}>
+        <View style={[mainView, style]}>
           <Text style={title_style}>{title}</Text>
-
-          {money !== 0 && <Text style={money_style}>{`$${money}`}</Text>}
+          {money ? <Text style={money_style}>{`$${money}`}</Text> : null}
         </View>
       </LinearGradient>
     </TouchableOpacity>
@@ -39,12 +45,14 @@ const CardItem = (props) => {
 };
 CardItem.defaultProps = {
   style: {},
+  wrapperSty: {},
   data: {},
   onClick: () => {},
   colors: ['white', 'white'],
 };
 CardItem.propTypes = {
   style: PropTypes.shape(),
+  wrapperSty: PropTypes.shape(),
   data: PropTypes.shape(),
   onClick: PropTypes.func,
   colors: PropTypes.arrayOf(PropTypes.string),
