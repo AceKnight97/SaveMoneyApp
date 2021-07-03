@@ -96,6 +96,7 @@ export const BOTTOM_APP_NAME = {
   INSIGHT: 'Insight',
   MESSAGE: 'Message',
   PROFILE: 'Profile',
+  JOURNAL_DETAILS: 'Journal_Details',
 };
 
 export const ALL_FIELDS = [
