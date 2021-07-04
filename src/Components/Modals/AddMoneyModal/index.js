@@ -1,61 +1,144 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import React, {useMemo, useEffect} from 'react';
+import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import Modal from 'react-native-modal';
-import { useMergeState } from '../../../Helper/customHooks';
+import {useMergeState} from '../../../Helper/customHooks';
 import GlobalStyles from '../../../Styles';
+import InputCT from '../../Inputs/InputCT';
 import ModalStyles from '../_modals';
+import AddMoneyModalStyle from './_addMoneyModal';
+import FooterButtons70 from '../../UI/FooterButtons70';
 
-const {
-  mainViewBot,
-  mainViewMid,
-} = ModalStyles;
-
-const {centerC1} = GlobalStyles;
+const {main} = AddMoneyModalStyle;
+const {header_title, mainViewMid, body_view} = ModalStyles;
+const {centerC1, mb16, mt16, mb24, f_1} = GlobalStyles;
 
 const AddMoneyModal = (props) => {
   const [state, setState] = useMergeState({
-    data: [],
+    money: undefined,
+    details: undefined,
+    otherTitle: '',
   });
-  const { onRequestClose, type, isVisible, style } = props;
-  
-  const renderMainView = () => (
-    <View>
-      <Text>AddMoneyModal</Text>
+  const {onClickCancel, style, cardItem} = props;
+
+  useEffect(() => {
+    if (_.isEmpty(cardItem)) {
+      setState({money: undefined, details: undefined, otherTitle: ''});
+    } else {
+      setState({money: cardItem.money || '', details: cardItem.details});
+    }
+  }, [props.cardItem]);
+
+  const {money, details, otherTitle} = state;
+
+  const onClickAdd = () => {
+    props.onClickAdd({title: otherTitle || cardItem.title, money, details});
+  };
+
+  const onChange = (key, value) => {
+    setState({[key]: value});
+  };
+
+  const renderBody = () => (
+    <View
+      style={[
+        body_view,
+        cardItem.title === 'Others'
+          ? {
+              height: 500 - 58,
+            }
+          : {},
+      ]}>
+      <View>
+        {cardItem.title === 'Others' && (
+          <InputCT
+            name="otherTitle"
+            style={mb16}
+            title="Title (optinal)"
+            onChange={onChange}
+            value={otherTitle}
+            placeholder="Enter your title"
+          />
+        )}
+        <InputCT
+          name="money"
+          title="Money"
+          onChange={onChange}
+          value={money}
+          placeholder="Enter your spending"
+          type="NUMBER"
+          maxLength={8}
+          // thousandSeparator
+        />
+
+        <InputCT
+          style={mt16}
+          name="details"
+          title="Details"
+          onChange={onChange}
+          value={details}
+          placeholder="Enter your details"
+          type="TEXT_AREA"
+          maxLength={250}
+        />
+      </View>
+
+      <FooterButtons70
+        leftTitle="Cancel"
+        rightTitle="Add"
+        leftOnPress={onClickCancel}
+        rightOnPress={onClickAdd}
+        disabled={!money}
+      />
     </View>
-  )
+  );
+
+  const renderMainView = () => (
+    <View style={main}>
+      <Text style={header_title}>Header</Text>
+      {renderBody()}
+    </View>
+  );
 
   return (
     <Modal
-      onRequestClose={onRequestClose}
-      isVisible={isVisible}
+      onRequestClose={onClickCancel}
+      isVisible={!_.isEmpty(cardItem)}
       style={{margin: 0}}
       backdropOpacity={0.25}>
-      <TouchableWithoutFeedback style={{flex: 1}} onPress={onRequestClose}>
-        {type === 'MIDLE' ? (
-          <View style={centerC1}>
-            <View style={{flex: 1}} />
-            <View style={[mainViewMid]}>{renderMainView()}</View>
-            <View style={{flex: 1}} />
+      <TouchableWithoutFeedback style={f_1} onPress={onClickCancel}>
+        <View style={centerC1}>
+          <View style={f_1} />
+          <View
+            style={[
+              mainViewMid,
+              cardItem.title === 'Others'
+                ? {
+                    height: 500,
+                  }
+                : {},
+              ,
+              style,
+            ]}>
+            {renderMainView()}
           </View>
-        ) : (
-          <View style={{flex: 1}}>
-            <View style={{flex: 1}} />
-            <View style={[mainViewBot]}>{renderMainView()}</View>
-          </View>
-        )}
+          <View style={f_1} />
+        </View>
       </TouchableWithoutFeedback>
     </Modal>
   );
 };
 
 AddMoneyModal.defaultProps = {
-  isVisible: false,
-  onRequestClose: () => {},
+  onClickCancel: () => {},
+  onClickAdd: () => {},
+  cardItem: {},
 };
 AddMoneyModal.propTypes = {
-  isVisible: PropTypes.bool,
-  onRequestClose: PropTypes.func,
+  onClickCancel: PropTypes.func,
+  onClickAdd: PropTypes.func,
+  cardItem: PropTypes.shape(),
 };
 
 export default AddMoneyModal;

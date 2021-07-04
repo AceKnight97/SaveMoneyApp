@@ -18,7 +18,15 @@ const BottomAppHeader = (props) => {
       case JOURNAL:
         return <DisplayMoney income={income} />;
       case JOURNAL_DETAILS:
-        return <DisplayMoney logs={logs} isIcon />;
+        return (
+          <DisplayMoney
+            logs={logs}
+            isIcon
+            moneyStyle={{
+              fontSize: 18,
+            }}
+          />
+        );
       case PROFILE:
         return (
           <ButtonCT

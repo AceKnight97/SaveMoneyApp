@@ -15,10 +15,14 @@ export const colors = {
   gray3: '#8e9bac',
 
   blue1: '#23B1FE',
+  blue5: '#40a9ff',
+  blue6: '#1890ff',
+  blue7: '#096dd9',
 
+  red0: '#ff4d4f',
   red1: '#FF647C',
   red2: '#f70a2e',
-  
+
   textColor1: '#162938',
   textColor2: '#384954',
   textColor3: '#76858C',

@@ -10,7 +10,7 @@ const CardListStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     // height: screenH - 72,
-    marginBottom: 24,
+    // marginBottom: 24,
   },
   list_view: {
     flexDirection: 'row',

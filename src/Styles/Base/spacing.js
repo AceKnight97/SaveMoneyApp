@@ -26,6 +26,35 @@ const margin = StyleSheet.create({
   mr24: {
     marginRight: 24,
   },
+  mr48: {
+    marginRight: 48,
+  },
+
+  mb12: {
+    marginBottom: 12,
+  },
+  mb16: {
+    marginBottom: 16,
+  },
+  mb24: {
+    marginBottom: 24,
+  },
+  mb48: {
+    marginBottom: 48,
+  },
+
+  ml12: {
+    marginLeft: 12,
+  },
+  ml16: {
+    marginLeft: 16,
+  },
+  ml24: {
+    marginLeft: 24,
+  },
+  ml48: {
+    marginLeft: 48,
+  },
 });
 
 const padding = StyleSheet.create({

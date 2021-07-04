@@ -9,14 +9,14 @@ import DisplayMoneyStyle from './_displayMoney';
 const {mainView, money_text} = DisplayMoneyStyle;
 
 const DisplayMoney = (props) => {
-  const {style, logs, isIcon, income} = props;
+  const {style, logs, isIcon, income, moneyStyle} = props;
   return (
     <View style={[mainView, style]}>
-      {income ? (
-        <Text style={money_text}>{getIncome(income)}</Text>
-      ) : (
-        <Text style={money_text}>{getMoneyFromList(logs)}</Text>
-      )}
+      {income || logs ? (
+        <Text style={[money_text, moneyStyle]}>
+          {income ? getIncome(income) : getMoneyFromList(logs)}
+        </Text>
+      ) : null}
       {isIcon && (
         <SvgXml
           xml={moneyBagIc}
@@ -33,12 +33,14 @@ DisplayMoney.defaultProps = {
   logs: [],
   isIcon: false,
   income: undefined,
+  moneyStyle: {},
 };
 DisplayMoney.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.shape()),
   style: PropTypes.shape(),
   isIcon: PropTypes.bool,
   income: PropTypes.number,
+  moneyStyle: PropTypes.shape(),
 };
 
 export default DisplayMoney;

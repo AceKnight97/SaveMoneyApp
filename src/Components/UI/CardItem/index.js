@@ -22,7 +22,7 @@ const CardItem = (props) => {
   const {title, money} = data;
 
   const onPress = () => {
-    props.onClick(data);
+    props.onPress(data);
   };
 
   return (
@@ -47,14 +47,14 @@ CardItem.defaultProps = {
   style: {},
   wrapperSty: {},
   data: {},
-  onClick: () => {},
+  onPress: () => {},
   colors: ['white', 'white'],
 };
 CardItem.propTypes = {
   style: PropTypes.shape(),
   wrapperSty: PropTypes.shape(),
   data: PropTypes.shape(),
-  onClick: PropTypes.func,
+  onPress: PropTypes.func,
   colors: PropTypes.arrayOf(PropTypes.string),
 };
 

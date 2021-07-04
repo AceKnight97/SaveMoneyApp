@@ -2,7 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import {ScrollView, View} from 'react-native';
-import {ALL_FIELDS, CreateColors} from '../../../Constant';
+import {ALL_FIELDS, CreateColors, getLinearColors} from '../../../Constant';
 import {useMergeState} from '../../../Helper/customHooks';
 import InputCT from '../../Inputs/InputCT';
 import DetailCard from '../CardItem';
@@ -27,15 +27,13 @@ const CardList = (props) => {
           title: x,
           money: 0,
           details: '',
-          sessions: [],
         });
       } else {
-        const {money, details, sessions} = item;
+        const {money, details} = item;
         formatedData.push({
           title: x,
           money,
           details,
-          sessions,
         });
       }
     });
@@ -56,6 +54,7 @@ const CardList = (props) => {
     }
     setState({formatedData: getFormatedLogs()});
   }, [props.logs]);
+
   const onChange = (key, value) => {
     setState({[key]: value});
   };
@@ -84,8 +83,8 @@ const CardList = (props) => {
                   marginLeft: i % 3 !== 0 ? 6 : 0,
                   marginTop: i / 3 >= 1 ? 6 : 0,
                 }}
-                colors={CreateColors[i]}
-                // onPress={() => getSession(x)}
+                colors={getLinearColors(i, x.title)}
+                onPress={onPress}
               />
             ),
           )}

@@ -13,7 +13,14 @@ export const ModelImageActions = {
 export const screenW = Math.round(Dimensions.get('window').width);
 export const screenH = Math.round(Dimensions.get('window').height);
 
-export function getLinearColors() {
+export const getLinearColors = (i, name) => {
+  const objArr = Object.keys(LinearLib);
+  const key = objArr[i];
+  // console.log({key, i, name});
+  return LinearLib[key];
+};
+
+export function getLinearColors1() {
   const objArr = Object.keys(LinearLib);
   const len = objArr.length;
   const key = objArr[Math.floor(Math.random() * len + 1)];

@@ -65,7 +65,9 @@ const flexBox = StyleSheet.create({
   textAlignC: {
     textAlign: 'center',
   },
-
+  f_1: {
+    flex: 1,
+  },
   // WH
   w_100: {
     width: '100%',
