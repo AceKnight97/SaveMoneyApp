@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../Constant/color';
 
-const {blue6, gray1, red0} = colors;
+const {blue6, gray1, red0, disabledColor, disabledBg, disabledBorder} = colors;
 
 const NewButtonStyle = StyleSheet.create({
   main: {
@@ -36,6 +36,13 @@ const NewButtonStyle = StyleSheet.create({
   },
   danger_text_style: {
     color: red0,
+  },
+  disabled_style: {
+    backgroundColor: disabledBg,
+    borderColor: disabledBorder,
+  },
+  disabled_text_style: {
+    color: disabledColor,
   },
 });
 

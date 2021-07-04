@@ -30,8 +30,8 @@ const createClient = async (isUsingCache = false) => {
   try {
     // const currentSession = await Auth.currentSession();
     // const token = currentSession.accessToken.jwtToken;
-    const token = auth.getToken();
-    // console.log({ token });
+    const token = await auth.getToken();
+    console.log({token});
     const authLink = setContext((_, {headers}) => ({
       headers: {
         ...headers,

@@ -26,6 +26,10 @@ export const colors = {
   textColor1: '#162938',
   textColor2: '#384954',
   textColor3: '#76858C',
+
+  disabledColor: '#00000040',
+  disabledBg: '#f5f5f5',
+  disabledBorder: '#d9d9d9',
 };
 
 export const colorsLinear = {

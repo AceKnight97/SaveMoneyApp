@@ -12,6 +12,8 @@ const {
   primary_text_style,
   text_text_style,
   danger_text_style,
+  disabled_style,
+  disabled_text_style,
 } = NewButtonStyle;
 
 const BUTTON_TYPES = {
@@ -23,7 +25,7 @@ const BUTTON_TYPES = {
 const {primary, text, danger} = BUTTON_TYPES;
 
 const NewButton = (props) => {
-  const {style, title, onPress, type} = props;
+  const {style, title, onPress, type, disabled} = props;
 
   let customStyle;
   let customTextStyle;
@@ -45,8 +47,18 @@ const NewButton = (props) => {
   }
 
   return (
-    <TouchableOpacity style={[main, customStyle, style]} onPress={onPress}>
-      <Text style={[main_text, customTextStyle]}>{title}</Text>
+    <TouchableOpacity
+      disabled={disabled}
+      style={[main, customStyle, style, disabled ? disabled_style : {}]}
+      onPress={onPress}>
+      <Text
+        style={[
+          main_text,
+          customTextStyle,
+          disabled ? disabled_text_style : {},
+        ]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -54,10 +66,12 @@ NewButton.defaultProps = {
   style: {},
   onPress: () => {},
   type: text,
+  disabled: false,
 };
 NewButton.propTypes = {
   style: PropTypes.shape(),
   onPress: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default NewButton;

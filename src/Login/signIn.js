@@ -1,19 +1,18 @@
-import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Text} from 'react-native';
-import ButtonCT from '../Components/Buttons/buttonCT';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
+import ButtonCT from '../Components/Buttons/buttonCT';
 import InputCT from '../Components/Inputs/InputCT';
-import gql from 'graphql-tag';
+import {useMergeState} from '../Helper/customHooks';
 import emailIc from '../Images/Login/email.svg';
 import emailActIc from '../Images/Login/emailAct.svg';
 import pswIc from '../Images/Login/privacy.svg';
 import pswActIc from '../Images/Login/privacyAct.svg';
-import GlobalStyles from '../Styles';
-import LoginFrame from './Layout/loginFrame';
 import {loginRequest} from '../Redux/Actions/login';
-import {useMergeState} from '../Helper/customHooks';
+import GlobalStyles from '../Styles';
 import {mutationSignIn} from './helper';
+import LoginFrame from './Layout/loginFrame';
 
 const {mt24, frsb, flexColumn} = GlobalStyles;
 
@@ -37,10 +36,10 @@ const SignIn = (props) => {
   });
 
   useEffect(() => {
+    console.log({
+      login: props.login,
+    });
     if (props.login?.isSuccess) {
-      console.log({
-        login: props.login,
-      });
       props.navigation.navigate('StackBottomApp');
     }
   }, [props.login]);

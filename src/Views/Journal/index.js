@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import ButtonCT from '../../Components/Buttons/buttonCT';
@@ -12,6 +12,8 @@ import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
 import JournalStyle from './_journal';
 import DatepickerCT from '../../Components/Inputs/DatepickerCT';
+import {queryDailtyInfo} from './helper';
+import _ from 'lodash';
 
 const {f1_wh_100, mt16, w_100} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
@@ -48,13 +50,39 @@ const Journal = (props) => {
     loading,
   } = state;
 
+  const fetchSelectedDateInfo = async () => {
+    setState({loading: true});
+    const dailyInfo = await queryDailtyInfo(state.selectedDate);
+    console.log({dailyInfo});
+    const obj = {loading: false};
+    if (_.isEmpty(dailyInfo)) {
+      _.assign(obj, {
+        dailyInfo: {
+          id: '',
+          date: state.selectedDate,
+          logs: [],
+          income: 0,
+          notes: '',
+        },
+      });
+    } else {
+      _.assign(obj, {dailyInfo});
+      props.onChange('income', dailyInfo.income);
+    }
+    setState(obj);
+  };
+
+  useEffect(() => {
+    if (state.selectedDate) {
+      fetchSelectedDateInfo();
+    }
+  }, [state.selectedDate]);
+
   const {logs, income, notes, date} = dailyInfo;
 
   const onChange = (key, value) => {
     setState({[key]: value});
   };
-
-  const onCloseAddMoneyModal = () => {};
 
   const onPressDetail = () => {
     props.navigation.navigate('JournalDetails', {date});

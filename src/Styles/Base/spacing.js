@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 const margin = StyleSheet.create({
+  m0: {
+    margin: 0,
+  },
   mt12: {
     marginTop: 12,
   },

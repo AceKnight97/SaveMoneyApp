@@ -6,11 +6,11 @@ import StackBottomApp from './StackBottomApp';
 
 const AppNavigatior = createSwitchNavigator(
   {
-    Login: {screen: SignInStack},
+    SignInStack: {screen: SignInStack},
     StackBottomApp: {screen: StackBottomApp},
   },
   {
-    initialRouteName: 'StackBottomApp',
+    initialRouteName: 'SignInStack',
   },
 );
 export default createAppContainer(AppNavigatior);

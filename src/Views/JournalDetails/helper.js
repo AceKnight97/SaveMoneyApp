@@ -3,9 +3,7 @@ import moment from 'moment';
 import handleAddDailyInfo from '../../Apollo/Functions/Handle/handleAddDailyInfo';
 import handleUpdateIncome from '../../Apollo/Functions/Handle/handleUpdateIncome';
 import handleUpdateLogs from '../../Apollo/Functions/Handle/handleUpdateLogs';
-
-const showErrorNotification = () => {};
-const showSuccessNotification = () => {};
+import {showNotification} from '../../Helper/notification';
 
 export const formatLogs = (logs = []) => {
   if (logs.length === 0) {
@@ -32,11 +30,11 @@ export const mutationLogs = async (data = {}) => {
           logs: formatLogs(logs),
         },
       });
-      showSuccessNotification('Successfully updated logs');
+      showNotification('Successfully updated logs');
       return true;
     } catch (error) {
       console.log('Failed to updated logs: ', error);
-      showErrorNotification('Failed to updated logs');
+      showNotification('Failed to updated logs');
       return false;
     }
   } else {
@@ -49,11 +47,11 @@ export const mutationLogs = async (data = {}) => {
           notes: '',
         },
       });
-      showSuccessNotification('Successfully added daily info');
+      showNotification('Successfully added daily info');
       return true;
     } catch (error) {
       console.log('Failed to add dailty: ', error);
-      showErrorNotification('Failed to add daily info');
+      showNotification('Failed to add daily info');
       return false;
     }
   }
@@ -70,11 +68,11 @@ export const mutationIncome = async (data = {}) => {
           notes,
         },
       });
-      showSuccessNotification('Successfully updated income');
+      showNotification('Successfully updated income');
       return true;
     } catch (error) {
       console.log('Failed to update income: ', error);
-      showErrorNotification('Failed to updated income');
+      showNotification('Failed to updated income');
       return false;
     }
   } else {
@@ -87,11 +85,11 @@ export const mutationIncome = async (data = {}) => {
           notes,
         },
       });
-      showSuccessNotification('Successfully added daily info');
+      showNotification('Successfully added daily info');
       return true;
     } catch (error) {
       console.log('Failed to add dailty: ', error);
-      showErrorNotification('Failed to add daily info');
+      showNotification('Failed to add daily info');
       return false;
     }
   }

@@ -7,7 +7,6 @@ export function* loginRequest() {
   while (INFINITE) {
     const request = yield take(AppFlowActions.LOGIN_REQUEST);
     const {data} = request;
-    console.log({request, data});
     const result = {isSuccess: true, user: {...data}};
     yield put({type: AppFlowActions.LOGIN_COMPLETE, data: result});
   }

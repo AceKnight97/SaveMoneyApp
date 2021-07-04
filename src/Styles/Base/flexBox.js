@@ -55,6 +55,11 @@ const flexBox = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  f_r_just_end: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   f1_wh_100: {
     flex: 1,
     height: '100%',

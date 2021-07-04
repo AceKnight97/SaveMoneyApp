@@ -1,5 +1,6 @@
 import handleSignIn from '../Apollo/Functions/Handle/handleSignIn';
 import {MESSAGES} from '../Constant/home';
+import auth from '../Helper/auth';
 
 const {
   FORGOT_SUCCESS_SENDING,

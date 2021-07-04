@@ -5,6 +5,7 @@ import React, {useMemo} from 'react';
 import {View} from 'react-native';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import AddMoneyModal from '../../Components/Modals/AddMoneyModal';
+import ConfirmModal from '../../Components/Modals/ConfirmModal';
 import CardList from '../../Components/UI/CardList';
 import {useMergeState} from '../../Helper/customHooks';
 import GlobalStyles from '../../Styles';
@@ -45,7 +46,7 @@ const JournalDetails = (props) => {
   const isEdit = useMemo(() => state.current === EDIT, [state.current]);
 
   const {style, onClickBackToJournal} = props;
-  console.log({current: state.current});
+
   const {
     cardItem,
     logs,
@@ -68,7 +69,6 @@ const JournalDetails = (props) => {
   };
 
   const onPressCardItem = (cardItem = {}) => {
-    console.log({cardItem});
     if (isReviewing || isDisplay) {
       return;
     }
@@ -123,7 +123,7 @@ const JournalDetails = (props) => {
     <View style={footer_btns}>
       <NewButton
         title={isEdit ? 'Cancel' : 'Back'}
-        onClick={isEdit ? onClickCancel : onClickBack}
+        onPress={isEdit ? onClickCancel : onClickBack}
       />
 
       {!(isReviewing || isDisplay) && (
@@ -136,6 +136,7 @@ const JournalDetails = (props) => {
       )}
 
       <NewButton
+        disabled={logs?.length === 0 || (isEdit && _.isEqual(props.logs, logs))}
         type="primary"
         title={isDisplay ? 'Edit' : isReviewing ? 'Complete' : 'Review'}
         onPress={
@@ -171,6 +172,12 @@ const JournalDetails = (props) => {
         cardItem={cardItem}
         onClickCancel={onClickCloseModal}
         onClickAdd={onClickAddInfo}
+      />
+      <ConfirmModal
+        isVisible={isShowResetModal}
+        onClickNo={toggleConfirmModal}
+        onClickYes={onHandleReset}
+        type="RESET_SPENDING"
       />
     </>
   );
