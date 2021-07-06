@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {useMergeState} from '../../Helper/customHooks';
 import ProfileChangeInfoStyle from './_profileChangeInfo';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
@@ -9,7 +9,9 @@ import ViewsStyle from '../Style';
 import Switcher from '../../Components/Switcher';
 import InputCT from '../../Components/Inputs/InputCT';
 import DatePickerCT from '../../Components/Inputs/DatepickerCT';
+import SearchAddress from '../../Components/Inputs/SearchAddress';
 import _ from 'lodash';
+import {screenH} from '../../Constant';
 
 const {f1_wh_100, mt16, mt24} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
@@ -175,7 +177,7 @@ const ProfileChangeInfo = (props) => {
 
   const renderChangeInfo = () => (
     <View style={{}}>
-      <InputCT
+      {/* <InputCT
         style={mt24}
         name='username'
         title='Full name'
@@ -194,16 +196,40 @@ const ProfileChangeInfo = (props) => {
         placeholder='Enter your gender'
       />
       <DatePickerCT
-        style={mt24}
+        // style={mt24}
+        // style={{
+        //   marginBottom: 48,
+        // }}
         name='dob'
         title='Date of birth'
         disabled={loading}
         onChange={onChange}
         value={gender}
         placeholder='Enter your birth date'
+      /> */}
+
+      <SearchAddress
+        disabled={loading}
+        style={mt24}
+        title='Address'
+        keyValue='address'
+        value={address}
+        onChange={onChange}
       />
 
-
+      <InputCT
+        // style={mt24}
+        style={{
+          margintTop: 48,
+        }}
+        name='phone'
+        title='Phone number'
+        disabled={loading}
+        onChange={onChange}
+        value={phone}
+        placeholder='081 - 954 - 1897'
+        type='NUMBER'
+      />
     </View>
   );
 
@@ -233,7 +259,25 @@ const ProfileChangeInfo = (props) => {
     <View style={f1_wh_100}>
       <BottomAppHeader />
 
-      <View style={bottom_App_Body}>{renderBody()}</View>
+      {/* <KeyboardAvoidingView enabled> */}
+      {/* <ScrollView style={{
+          // flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        }}> */}
+      {/* bottom_App_Body */}
+      <View style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 24,
+        flex: 1,
+        position: 'relative',
+        justifyContent: 'space-between',
+        height: screenH - 72,
+      }}>{renderBody()}</View>
+      {/* </ScrollView> */}
+      {/* </KeyboardAvoidingView> */}
     </View>
   );
 };

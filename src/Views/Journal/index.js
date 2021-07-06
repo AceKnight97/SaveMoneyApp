@@ -53,7 +53,7 @@ const Journal = (props) => {
   const fetchSelectedDateInfo = async () => {
     setState({loading: true});
     const dailyInfo = await queryDailtyInfo(state.selectedDate);
-    console.log({dailyInfo});
+    // console.log({dailyInfo});
     const obj = {loading: false};
     if (_.isEmpty(dailyInfo)) {
       _.assign(obj, {
@@ -96,9 +96,9 @@ const Journal = (props) => {
   const renderBody = () => (
     <View style={{width: '100%'}}>
       <Text style={journal_selected_day}>
-        {selectedDate
-          ? moment(selectedDate).format('dddd - DD, MMMM, YYYY')
-          : 'Select a date'}
+        {selectedDate ?
+          moment(selectedDate).format('dddd - DD, MMMM, YYYY') :
+          'Select a date'}
       </Text>
 
       <DatepickerCT

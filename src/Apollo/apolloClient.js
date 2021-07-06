@@ -31,43 +31,43 @@ const createClient = async (isUsingCache = false) => {
     // const currentSession = await Auth.currentSession();
     // const token = currentSession.accessToken.jwtToken;
     const token = await auth.getToken();
-    console.log({token});
+    // console.log({token});
     const authLink = setContext((_, {headers}) => ({
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        'authorization': token ? `Bearer ${token}` : '',
         'access-token': token,
       },
     }));
     return new ApolloClient({
       link: authLink.concat(
-        ApolloLink.from([
-          onError(
-            ({graphQLErrors, networkError, response, operation, forward}) => {
-              if (graphQLErrors) {
-                _.map(graphQLErrors, ({message, extensions}) => {
-                  if (
-                    _.includes(message, '403') ||
+          ApolloLink.from([
+            onError(
+                ({graphQLErrors, networkError, response, operation, forward}) => {
+                  if (graphQLErrors) {
+                    _.map(graphQLErrors, ({message, extensions}) => {
+                      if (
+                        _.includes(message, '403') ||
                     _.includes(message, '400') ||
                     extensions.code === 'UNAUTHENTICATED'
-                  ) {
-                    emitter.emit(EMITTER_CONSTANTS.LOGOUT, 'request');
+                      ) {
+                        emitter.emit(EMITTER_CONSTANTS.LOGOUT, 'request');
+                      }
+                    });
+                  } else if (networkError) {
+                    console.error(`[Network error]: ${networkError}`);
+                    // if (!isNotShowDisconnect) {
+                    // openPopupDisconnect();
+                    // }
+                    throw networkError;
                   }
-                });
-              } else if (networkError) {
-                console.error(`[Network error]: ${networkError}`);
-                // if (!isNotShowDisconnect) {
-                // openPopupDisconnect();
-                // }
-                throw networkError;
-              }
-            },
-          ),
-          new HttpLink({
-            uri: CONFIG.APOLLO_HOST_URL,
-            credentials: 'same-origin',
-          }),
-        ]),
+                },
+            ),
+            new HttpLink({
+              uri: CONFIG.APOLLO_HOST_URL,
+              credentials: 'same-origin',
+            }),
+          ]),
       ),
       cache,
       defaultOptions: isUsingCache ? undefined : defaultOptions,

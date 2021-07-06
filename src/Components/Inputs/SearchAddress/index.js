@@ -1,33 +1,57 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  TouchableOpacity, View,
+  TouchableOpacity, View, Text, ScrollView,
 } from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {SvgXml} from 'react-native-svg';
-import svgfile from '../../../assets/svg/icsearch.svg';
+// import svgfile from '../../../assets/svg/icsearch.svg';
 import SearchAddressStyle from './_searchAddress';
+import InputTitle from '../InputTitle';
 
-const GOOGLE_PLACE_API_KEY = 'AIzaSyBYEOpkLH1fJSeFF6d83rJNfv9UgoJF1k4';
+// const GOOGLE_PLACE_API_KEY = 'AIzaSyBYEOpkLH1fJSeFF6d83rJNfv9UgoJF1k4';
 
-const {container, Page} = SearchAddressStyle;
+const GOOGLE_PLACE_API_KEY = 'AIzaSyConH6CaPysaRd5GYFTN1N8Yy3b1RpxIbA';
+const {container, main,
+  textInputContainer,
+  textInput,
+  description,
+  row} = SearchAddressStyle;
 
-const SearchAddress = ()=> {
-  const {countryCode} = props;
+const SearchAddress = (props)=> {
+  const {countryCode, title, style} = props;
   const queryCountry = `country:${countryCode}`;
   return (
-    <View style={Page}>
+    <View style={[main, style]}>
+      <InputTitle title={title} />
+      {/* <ScrollView> */}
       <GooglePlacesAutocomplete
+        placeholder='Search destination'
+        minLength={2}
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        query={{
+          key: GOOGLE_PLACE_API_KEY,
+          language: 'en',
+        }}
+
+
+      />
+      {/* </ScrollView> */}
+      {/* <GooglePlacesAutocomplete
         enablePoweredByContainer={false}
         placeholder="Search..."
         // placeholderTextColor="#003340"
         minLength={2}
         autoFocus
         returnKeyType="search"
-        keyboardAppearance="light"
+        // returnKeyType={'default'}
+        // keyboardAppearance="light"
         listViewDisplayed="auto"
         fetchDetails
-        renderDescription={(row) => row.description}
+        // renderDescription={(row) => row.description}
         onPress={(data, details = null) => {
           const detailData = {
             postalCode: '',
@@ -60,8 +84,8 @@ const SearchAddress = ()=> {
           props.onValueChanged(detailData);
         }}
 
-        getDefaultValue={() => ''}
-
+        // getDefaultValue={() => ''}
+        onFail={(error) => console.log(error)}
         query={{
           key: GOOGLE_PLACE_API_KEY,
           language: 'en',
@@ -70,32 +94,10 @@ const SearchAddress = ()=> {
         }}
 
         styles={{
-          textInputContainer: {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderColor: '#E5EAEB',
-            marginHorizontal: 16,
-            borderRadius: 4,
-            borderWidth: 1,
-            borderTopColor: '#E5EAEB',
-            borderBottomColor: '#E5EAEB',
-            borderTopWidth: 1,
-            borderBottomWidth: 1,
-          },
-          textInput: {
-            fontFamily: 'OpenSans-Regular',
-            color: '#003340',
-            fontSize: 16,
-          },
-          description: {
-            fontSize: 16,
-            fontFamily: 'OpenSans-Regular',
-            color: '#003340',
-            alignSelf: 'center',
-            paddingHorizontal: 16,
-          },
-          row: {
-            height: 'auto',
-          },
+          textInputContainer,
+          textInput,
+          description,
+          row,
         }}
 
         GooglePlacesDetailsQuery={{
@@ -103,17 +105,26 @@ const SearchAddress = ()=> {
         }}
 
         debounce={200}
-        renderRightButton={() => <TouchableOpacity style={{justifyContent: 'center'}}><SvgXml style={{marginRight: 10}} xml={svgfile} /></TouchableOpacity>}
-      />
+        renderRightButton={() => (
+          <TouchableOpacity style={{justifyContent: 'center'}}>
+            <Text>Text</Text>
+          </TouchableOpacity>
+        )}
+      /> */}
     </View>
   );
 };
 SearchAddress.defaultProps = {
+  title: '',
+  style: {},
+  countryCode: '+1',
   onValueChanged: () => { },
 };
 
 SearchAddress.propTypes = {
+  title: PropTypes.string,
+  style: PropTypes.shape(),
   onValueChanged: PropTypes.func,
-  countryCode: PropTypes.string.isRequired, // ISO 3166-1 Alpha-2 compatible country code
+  countryCode: PropTypes.string, // ISO 3166-1 Alpha-2 compatible country code
 };
 export default SearchAddress;
