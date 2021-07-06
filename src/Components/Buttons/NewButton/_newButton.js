@@ -12,6 +12,7 @@ const NewButtonStyle = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     minWidth: 80,
+    height: 40,
   },
   main_text: {
     fontSize: 16,
@@ -28,7 +29,9 @@ const NewButtonStyle = StyleSheet.create({
     borderWidth: 1,
     borderColor: gray1,
   },
-  text_text_style: {},
+  text_text_style: {
+    color: 'black',
+  },
 
   danger_style: {
     borderWidth: 1,

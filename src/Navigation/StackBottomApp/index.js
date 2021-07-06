@@ -1,7 +1,7 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { colors } from '../../Constant/color';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {colors} from '../../Constant/color';
 import grayinsightsvg from '../../Images/BottomApp/insights.svg';
 import insightsvg from '../../Images//BottomApp/insightsAct.svg';
 import grayjournalsvg from '../../Images//BottomApp/journal.svg';
@@ -15,43 +15,68 @@ import BottomAppName from '../../UI/bottomAppName';
 import Insights from '../../Views/Insights';
 import StackJournal from '../StackJournal';
 import Message from '../../Views/Message';
-import Profile from '../../Views/Profile';
+import StackProfile from '../../Navigation/StackProfile';
 
 let abc = 'Journal';
 
 const BottomApp = createBottomTabNavigator(
   {
-    Journal: { screen: StackJournal },
-    Insights: { screen: Insights },
-    Message: { screen: Message },
-    Profile: { screen: Profile },
+    Journal: {screen: StackJournal},
+    Insights: {screen: Insights},
+    Message: {screen: Message},
+    Profile: {screen: StackProfile},
   },
   {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
+    defaultNavigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
         if (routeName === 'Journal') {
           return (
-            <BottomAppName isAnimation={abc === 'Journal'} focused={focused} active={journalsvg} notActive={grayjournalsvg} title="Journal" />
+            <BottomAppName
+              isAnimation={abc === 'Journal'}
+              focused={focused}
+              active={journalsvg}
+              notActive={grayjournalsvg}
+              title="Journal"
+            />
           );
         }
         if (routeName === 'Insights') {
           return (
-            <BottomAppName isAnimation={abc === 'Insights'} focused={focused} active={insightsvg} notActive={grayinsightsvg} title="Insights" />
+            <BottomAppName
+              isAnimation={abc === 'Insights'}
+              focused={focused}
+              active={insightsvg}
+              notActive={grayinsightsvg}
+              title="Insights"
+            />
           );
         }
         if (routeName === 'Message') {
           return (
-            <BottomAppName isAnimation={abc === 'Message'} focused={focused} active={msgsvg} notActive={graymsgsvg} title="Message" reddot={reddot} />
+            <BottomAppName
+              isAnimation={abc === 'Message'}
+              focused={focused}
+              active={msgsvg}
+              notActive={graymsgsvg}
+              title="Message"
+              reddot={reddot}
+            />
           );
         }
         if (routeName === 'Profile') {
           return (
-            <BottomAppName isAnimation={abc === 'Profile'} focused={focused} active={usersvg} notActive={grayusersvg} title="Profile" />
+            <BottomAppName
+              isAnimation={abc === 'Profile'}
+              focused={focused}
+              active={usersvg}
+              notActive={grayusersvg}
+              title="Profile"
+            />
           );
         }
       },
-      tabBarOnPress: ({ navigation }) => {
+      tabBarOnPress: ({navigation}) => {
         abc = navigation.state.routeName;
         navigation.navigate(`${navigation.state.routeName}`);
       },
@@ -85,7 +110,7 @@ const BottomApp = createBottomTabNavigator(
 
 const StackBottomApp = createStackNavigator(
   {
-    BottomApp: { screen: BottomApp },
+    BottomApp: {screen: BottomApp},
   },
   {
     defaultNavigationOptions: {

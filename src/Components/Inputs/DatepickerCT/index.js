@@ -2,6 +2,7 @@ import {Datepicker} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View} from 'react-native';
+import {TODAY} from '../../../Constant';
 import {useMergeState} from '../../../Helper/customHooks';
 import InputTitle from '../InputTitle';
 import DatepickerCTStyle from './_datepickerCT';
@@ -48,12 +49,16 @@ DatepickerCT.defaultProps = {
   name: '',
   onChange: () => {},
   value: undefined,
+  maxDate: TODAY,
+  title: '',
 };
 DatepickerCT.propTypes = {
   style: PropTypes.shape(),
   name: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.shape(),
+  maxDate: PropTypes.shape(),
+  title: PropTypes.string,
 };
 
 export default DatepickerCT;
