@@ -67,11 +67,15 @@ NewButton.defaultProps = {
   onPress: () => {},
   type: text,
   disabled: false,
+  title: '',
+  type: text,
 };
 NewButton.propTypes = {
   style: PropTypes.shape(),
   onPress: PropTypes.func,
   disabled: PropTypes.bool,
+  title: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default NewButton;

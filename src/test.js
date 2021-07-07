@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import { useMergeState } from '../../Helper/customHooks';
+import {Text, View} from 'react-native';
 import MessageStyle from './_message';
-const {
-  main,
-} = MessageStyle;
+const {main} = MessageStyle;
 
 const Message = (props) => {
   const [state, setState] = useMergeState({

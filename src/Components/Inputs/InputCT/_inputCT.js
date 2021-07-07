@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../Constant/color';
 
-const {green1, gray1} = colors;
+const {green1, gray1, red0} = colors;
 
 const InputCTStyle = StyleSheet.create({
   inputCTMain: {
@@ -41,6 +41,13 @@ const InputCTStyle = StyleSheet.create({
   },
   activeBorder: {
     borderColor: green1,
+  },
+  errorBorder: {
+    borderColor: red0,
+  },
+  errorStyle: {
+    marginTop: 4,
+    color: red0,
   },
 });
 export default InputCTStyle;

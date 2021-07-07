@@ -1,20 +1,25 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import {TextInput, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Text, TextInput, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SvgXml} from 'react-native-svg';
-import {colors} from '../../../Constant/color';
 import {useMergeState} from '../../../Helper/customHooks';
+import grayEye from '../../../Images/Basic/grayEye.svg';
+import grayEyeCross from '../../../Images/Basic/grayEyeCross.svg';
 import GlobalStyles from '../../../Styles';
 import InputTitle from '../InputTitle';
 import InputCTStyle from './_inputCT';
 
-const {centerC, mr8} = GlobalStyles;
+
+const {centerC, mr8, ml8} = GlobalStyles;
 const {
   inputWrapper,
   inputCTMain,
   textAreaStyle,
   inputBasic,
   activeBorder,
+  errorStyle,
+  errorBorder,
 } = InputCTStyle;
 const INPUT_CT_TYPES = {
   TEXT: 'TEXT',
@@ -26,7 +31,13 @@ const {TEXT, TEXT_AREA, NUMBER} = INPUT_CT_TYPES;
 const InputCT = (props) => {
   const [state, setState] = useMergeState({
     isFocus: false,
+    isSecured: props.isSecured,
   });
+
+  useEffect(() => {
+    setState({isSecured: props.isSecured});
+  }, [props.isSecured]);
+
   const {
     title,
     disabled,
@@ -35,20 +46,25 @@ const InputCT = (props) => {
     // keyboardType,
     style,
     value,
-    isSecured,
     // multiline,
     // onChange,
     maxLength,
     placeholder,
-    inputStyle,
     icon,
     onSubmitEditing,
     type,
+    inputStyle,
     name,
+    errMes,
   } = props;
+  const {isFocus, isSecured} = state;
 
   const onChange = (text) => {
     props.onChange(name, text);
+  };
+
+  const onChangeSecure = () => {
+    setState({isSecured: !isSecured});
   };
 
   const onFocus = () => {
@@ -59,7 +75,6 @@ const InputCT = (props) => {
     setState({isFocus: false});
   };
 
-  const {isFocus} = state;
 
   let typeStyle;
   let keyboardType = props.keyboardType;
@@ -82,7 +97,8 @@ const InputCT = (props) => {
     <View style={[inputCTMain, style]}>
       <InputTitle title={title} />
 
-      <View style={[inputWrapper, typeStyle, isFocus ? activeBorder : {}]}>
+      <View style={[inputWrapper, typeStyle, isFocus ? activeBorder : {},
+      errMes?errorBorder:{}]}>
         {icon ? <SvgXml xml={icon} style={mr8} /> : null}
 
         <TextInput
@@ -105,7 +121,23 @@ const InputCT = (props) => {
           // placeholderStyle={[{}, placeholderStyle]}
           // placeholderTextColor={defaultcolor || colors.gray1}
         />
+        {props.isSecured ? (
+          <TouchableOpacity
+            style={ml8}
+            onPress={onChangeSecure}
+          >
+            <SvgXml xml={ isSecured?grayEyeCross:grayEye } />
+          </TouchableOpacity>
+        ): null}
+
       </View>
+
+      {
+        errMes ? (<Text style={errorStyle}>
+          {errMes}
+        </Text>):null
+      }
+
     </View>
   );
 };
@@ -127,6 +159,9 @@ InputCT.defaultProps = {
   onSubmitEditing: () => {},
   numberOfLines: undefined,
   type: TEXT,
+  inputStyle: {},
+  name: '',
+  errMes: '',
 };
 InputCT.propTypes = {
   title: PropTypes.string,
@@ -145,6 +180,9 @@ InputCT.propTypes = {
   onSubmitEditing: PropTypes.func,
   numberOfLines: PropTypes.number,
   type: PropTypes.string,
+  inputStyle: PropTypes.shape(),
+  name: PropTypes.string,
+  errMes: PropTypes.string,
 };
 
 export default InputCT;

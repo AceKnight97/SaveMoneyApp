@@ -14,6 +14,7 @@ import GlobalStyles from '../Styles';
 import {mutationSignIn} from './helper';
 import LoginFrame from './Layout/loginFrame';
 
+
 const {mt24, frsb, flexColumn} = GlobalStyles;
 
 const styles = StyleSheet.create({
@@ -126,6 +127,7 @@ SignIn.defaultProps = {};
 SignIn.propTypes = {
   loginRequest: PropTypes.func.isRequired,
   login: PropTypes.shape(),
+  navigation: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = (state) => ({
