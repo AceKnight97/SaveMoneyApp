@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {ScrollView, View, } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Avatar from '../../Components/Avatar';
@@ -11,7 +11,7 @@ import {useMergeState} from '../../Helper/customHooks';
 import {logoutRequest} from '../../Redux/Actions/login';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
-import {getAppInfo, getLogInfo, getUerInfo} from './helper';
+import {getAppInfo, getLogInfo, getUerInfo, queryUserData} from './helper';
 import ProfileStyle from './_profile';
 import _ from 'lodash';
 
@@ -29,21 +29,34 @@ const {red2, red1} = colors;
 const Profile = (props) => {
   const [state, setState] = useMergeState({
     modalInfo: {},
-    patientData: _.cloneDeep(props.profile),
+    patientData:{},
     loading: false,
   });
+
+  const logOut = () => {
+    props.logoutRequest();
+    props.navigation.navigate('SignInStack');
+  }
+
+  const fetchUserData = async () => {
+    setState({ loading: true });
+    const patientData = await queryUserData();
+    if (_.isEmpty(patientData)) {
+      logOut();
+    }
+    setState({ loading: false, patientData });
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const {patientData, modalInfo, loading} = state;
 
   const {style} = props;
 
-  const onPressLogOut = () => {
-    props.logoutRequest();
-    props.navigation.navigate('SignInStack');
-  };
-
   const onPressChangeInfo = () => {
-    props.navigation.navigate('ProfileChangeInfo');
+    props.navigation.navigate('ProfileChangeInfo', {data: patientData});
   };
 
   const renderBody = () => (
@@ -66,7 +79,7 @@ const Profile = (props) => {
             // style={profile_sign_out_btn}
             UserTextStyle={{color: red1}}
             title="Sign out"
-            onPress={onPressLogOut}
+            onPress={logOut}
           />
         </View>
       </View>
@@ -98,13 +111,11 @@ const Profile = (props) => {
 };
 Profile.defaultProps = {
   className: '',
-  profile: {},
   fetchUserData: () => {},
 };
 Profile.propTypes = {
   className: PropTypes.string,
   logoutRequest: PropTypes.func.isRequired,
-  profile: PropTypes.shape(),
   fetchUserData: PropTypes.func,
 };
 

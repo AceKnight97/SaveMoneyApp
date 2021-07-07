@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {KeyboardAvoidingView, ScrollView, Text, View} from 'react-native';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import DatePickerCT from '../../Components/Inputs/DatepickerCT';
@@ -16,9 +16,14 @@ import {mutationChangePassword, mutationUpdateUser} from './helper';
 
 const {f1_wh_100, mt16, mt24, mt48} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
-const {main, wrapper} = ProfileChangeInfoStyle;
+const { main, wrapper } = ProfileChangeInfoStyle;
+
+const {
+  INCORRECT_PASSWORD,  PASSWORD_SHORTEST_6, PASSWORD_NOT_MATCHED, CAN_NOT_EMPTY, INVALID_PHONE_FORMAT
+}= MESSAGES;
 
 const ProfileChangeInfo = (props) => {
+  const saveJson = useRef(undefined);
   const [state, setState] = useMergeState({
     activeTab: 'Info',
     address: '',
@@ -40,7 +45,9 @@ const ProfileChangeInfo = (props) => {
     loading: false,
   });
 
-  const {style, userInfo} = props;
+  const { style } = props;
+  
+  const userInfo = props.navigation.getParam('data'); // from Add Spending use ONCE
 
   useEffect(() => {
     if (_.isEmpty(userInfo)) {
@@ -53,14 +60,14 @@ const ProfileChangeInfo = (props) => {
         confirmNewPasswordErr: '',
       });
     } else {
-      setState({
+      saveJson.current = {
         address: userInfo.address || '',
-        dob: userInfo.dob || undefined,
-        email: userInfo.email || '',
+        dob: new Date(userInfo.dob) || undefined,
         username: userInfo.username || '',
         gender: userInfo.gender || '',
         phone: userInfo.phone || '',
-      });
+      };
+      setState(saveJson.current);
     }
   }, [props.userInfo]);
 
@@ -115,25 +122,25 @@ const ProfileChangeInfo = (props) => {
   const onClickChange = () => {
     if (isChangePassword) {
       if (password.length < 6) {
-        setState({passwordErr: MESSAGES.INCORRECT_PASSWORD});
+        setState({passwordErr: INCORRECT_PASSWORD});
         return;
       }
       if (newPassword.length < 6) {
-        setState({newPasswordErr: MESSAGES.PASSWORD_SHORTEST_6});
+        setState({newPasswordErr: PASSWORD_SHORTEST_6});
         return;
       }
       if (confirmNewPassword !== newPassword) {
-        setState({confirmNewPasswordErr: MESSAGES.PASSWORD_NOT_MATCHED});
+        setState({confirmNewPasswordErr: PASSWORD_NOT_MATCHED});
         return;
       }
       callChangePassword();
     } else {
       if (!username.trim()) {
-        setState({usernameErr: MESSAGES.CAN_NOT_EMPTY});
+        setState({usernameErr: CAN_NOT_EMPTY});
         return;
       }
       if (phone.length < 10) {
-        setState({phoneErr: MESSAGES.INVALID_PHONE_FORMAT});
+        setState({phoneErr: INVALID_PHONE_FORMAT});
         return;
       }
       callUpdateProfile();
@@ -165,13 +172,12 @@ const ProfileChangeInfo = (props) => {
       !username ||
       !gender ||
       !phone ||
-      _.isEqual(userInfo, {
+      _.isEqual(saveJson.current, {
         address,
         dob,
         username,
         gender,
         phone,
-        email: userInfo.email,
       })
     );
   };

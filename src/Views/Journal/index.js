@@ -53,7 +53,7 @@ const Journal = (props) => {
   const fetchSelectedDateInfo = async () => {
     setState({loading: true});
     const dailyInfo = await queryDailtyInfo(state.selectedDate);
-    // console.log({dailyInfo});
+    console.log({dailyInfo});
     const obj = {loading: false};
     if (_.isEmpty(dailyInfo)) {
       _.assign(obj, {

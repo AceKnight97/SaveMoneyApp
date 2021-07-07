@@ -1,7 +1,39 @@
-import _ from "lodash";
-import moment from "moment";
+import _ from 'lodash';
+import moment from 'moment';
+import fetchMe from '../../Apollo/Functions/Fetch/fetchMe';
+import handleVerifiedEmail from '../../Apollo/Functions/Handle/handleVerifiedEmail';
 
-export const a = '';
+
+export const queryUserData = async () => {
+  try {
+    const profile = await fetchMe();
+    console.log({profile});
+    if (_.isEmpty(profile)) {
+      return {};
+    }
+    return {
+      ...profile,
+      dob: profile.dob ? moment(profile.dob) : undefined,
+    };
+  } catch (error) {
+    console.log('Failed to fetch user: ', error);
+    return {};
+  }
+};
+
+export const mutationVerifyAccount = async (verificationCode = '') => {
+  console.log({verificationCode});
+  try {
+    await handleVerifiedEmail({
+      verificationCode,
+    });
+    return true;
+  } catch (error) {
+    console.log('Failed to verify: ', error);
+    return false;
+  }
+};
+
 
 const getPhoneFormated = (phone = '') => {
   if (!phone) {
@@ -21,9 +53,9 @@ export const getUerInfo = (patientData = {}) => {
     },
     {
       title: 'Age:',
-      data: patientData.dob
-        ? `${moment().diff(moment(patientData.dob), 'years')}`
-        : '',
+      data: patientData.dob ?
+        `${moment().diff(moment(patientData.dob), 'years')}` :
+        '',
     },
     {
       title: 'Gender:',
@@ -39,9 +71,9 @@ export const getUerInfo = (patientData = {}) => {
     },
     {
       title: 'Dob:',
-      data: patientData.dob
-        ? moment(patientData.dob, 'YYYY-DD-MM').format('DD-MM-YYYY')
-        : '',
+      data: patientData.dob ?
+        moment(patientData.dob, 'YYYY-DD-MM').format('DD-MM-YYYY') :
+        '',
     },
   ];
 };
@@ -53,9 +85,9 @@ export const getLogInfo = (data = {}) => {
   return [
     {
       title: 'Sign up date:',
-      data: data.signUpDate
-        ? moment(data.signUpDate).format('DD/MM/YYYY')
-        : '',
+      data: data.signUpDate ?
+        moment(data.signUpDate).format('DD/MM/YYYY') :
+        '',
     },
     {
       title: 'First date adding log:',
