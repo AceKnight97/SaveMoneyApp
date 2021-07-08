@@ -13,7 +13,7 @@ import GlobalStyles from '../../Styles';
 import {colors} from '../../Constant/color';
 import {screenW} from '../../Constant';
 
-import ButtonCT from '../Buttons/buttonCT';
+import ButtonCT from '../Buttons/ButtonCT';
 
 import closeIc from '../../../src/Images/Basic/close.svg';
 

@@ -1,34 +1,59 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
-import {colors} from '../../Constant/color';
+import BottomAppHeader from '../../Components/Header/bottomAppHeader';
+import GlobalStyles from '../../Styles';
 import InsightsStyles from '../../Styles/BottomAppPages/insights';
+import ViewsStyle from '../Style';
+import MonthSelector from '../../Components/UI/MonthSelector';
+import {useMergeState} from '../../Helper/customHooks';
+import moment from 'moment';
 
+const {f1_wh_100, mt16, w_100} = GlobalStyles;
+const {bottom_App_Body} = ViewsStyle;
 const {mainView} = InsightsStyles;
-class Insights extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      money: 0,
-      MORNING: [],
-      AFTERNOON: [],
-      NIGHT: [],
-      LocalData: '',
-    };
-  }
 
-  render() {
-    const {LocalData} = this.state;
-    return (
-      <View style={mainView}>
-        <Text style={{color: colors.green}}>{LocalData}</Text>
-        {/* <Text style={{color: colors.green}}>{money}</Text>
-       <Text style={{color: colors.green}}>{MORNING}</Text>
-       <Text style={{color: colors.green}}>{AFTERNOON}</Text>
-       <Text style={{color: colors.green}}>{NIGHT}</Text> */}
-      </View>
-    );
-  }
-}
+const Insights = (props) => {
+  const [state, setState] = useMergeState({
+    selectedMonth: moment().subtract(1, 'months'),
+  });
+
+  const onChange = (key, value) => {
+    setState({[key]: value});
+  };
+
+  const {selectedMonth} = state;
+
+  const renderBody = () => (
+    <View style={{
+      height: '100%',
+      width: '100%',
+      // backgroundColor: 'red',
+      display: 'flex',
+      alignItems: 'center',
+    }}>
+
+      <View style={{
+        height: '36%',
+        width: '100%',
+        backgroundColor: 'red',
+      }}/>
+
+      <MonthSelector
+        style={{marginTop: 36}}
+        onChange={onChange}
+        selectedMonth={selectedMonth}
+      />
+    </View>
+  );
+
+  return (
+    <View style={f1_wh_100}>
+      <BottomAppHeader currentTab="Insight" />
+
+      <View style={bottom_App_Body}>{renderBody()}</View>
+    </View>
+  );
+};
 
 Insights.defaultProps = {};
 Insights.propTypes = {};

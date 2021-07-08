@@ -8,7 +8,7 @@ import {colors} from '../../Constant/color';
 import {isTheSameObj} from '../../Ulti';
 import InputCT from '../../Components/Inputs/InputCT';
 import MultipleLines from '../../Components/Inputs/multipleLines';
-import IconButton from '../../Components/Buttons/iconButton';
+import IconButton from '../../Components/Buttons/IconButton';
 import checkActIc from '../../Images/Basic/checkAct.svg';
 import trashActIc from '../../Images/Basic/trashAct.svg';
 import downActIc from '../../Images/Basic/downAct.svg';

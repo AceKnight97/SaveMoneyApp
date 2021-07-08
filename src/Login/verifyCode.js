@@ -6,7 +6,7 @@ import GlobalStyles from '../Styles';
 import {colors} from '../Constant/color';
 
 import InputCT from '../Components/Inputs/InputCT';
-import ButtonCT from '../Components/Buttons/buttonCT';
+import ButtonCT from '../Components/Buttons/ButtonCT';
 
 const styles = StyleSheet.create({
   veriFyCodeMain: {

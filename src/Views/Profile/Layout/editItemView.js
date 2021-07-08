@@ -9,7 +9,7 @@ import {colors} from '../../../Constant/color';
 import InputCT from '../../../Components/Inputs/InputCT';
 // import {isTheSameObj} from '../../Ulti';
 // import MultipleLines from '../../Components/Inputs/multipleLines';
-// import IconButton from '../../Components/Buttons/iconButton';
+// import IconButton from '../../Components/Buttons/IconButton';
 import checkActIc from '../../../Images/Basic/checkAct.svg';
 import downActIc from '../../../Images/Basic/downAct.svg';
 import checkIc from '../../../Images/Basic/check.svg';

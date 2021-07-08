@@ -1,45 +1,36 @@
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
-import ButtonCT from '../Components/Buttons/buttonCT';
-import InputCT from '../Components/Inputs/InputCT';
-import {useMergeState} from '../Helper/customHooks';
-import emailIc from '../Images/Login/email.svg';
-import emailActIc from '../Images/Login/emailAct.svg';
-import pswIc from '../Images/Login/privacy.svg';
-import pswActIc from '../Images/Login/privacyAct.svg';
-import {loginRequest} from '../Redux/Actions/login';
-import GlobalStyles from '../Styles';
-import {mutationSignIn} from './helper';
-import LoginFrame from './Layout/loginFrame';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
+import InputCT from '../../Components/Inputs/InputCT';
+import {useMergeState} from '../../Helper/customHooks';
+import emailIc from '../../Images/Login/email.svg';
+import emailActIc from '../../Images/Login/emailAct.svg';
+import pswIc from '../../Images/Login/privacy.svg';
+import pswActIc from '../../Images/Login/privacyAct.svg';
+import {loginRequest} from '../../Redux/Actions/login';
+import GlobalStyles from '../../Styles';
+import {mutationSignIn} from '../helper';
+import LoginFrame from '../Layout/loginFrame';
+import SignInStyle from './_signIn';
 
 
 const {mt24, frsb, flexColumn} = GlobalStyles;
 
-const styles = StyleSheet.create({
-  signInMain: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-  },
-  lowBody: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-});
+const {signInMain, lowBody} = SignInStyle;
+
 const SignIn = (props) => {
   const [state, setState] = useMergeState({
     email: 'ace1@gmail.com',
     password: '12345678',
     emailErr: '',
     passwordErr: '',
+
+    loading: false,
   });
 
   useEffect(() => {
-    console.log({
-      login: props.login,
-    });
     if (props.login?.isSuccess) {
       props.navigation.navigate('StackBottomApp');
     }
@@ -50,6 +41,15 @@ const SignIn = (props) => {
     const res = await mutationSignIn(email, password, props.loginRequest);
     setState(res);
   };
+  const onChange = (key, value) => {
+    setState({[key]: value, emailErr: '', passwordErr: ''});
+  };
+
+  const navigateForgot = () => {
+    props.navigation.navigate('ForgotPassword');
+  };
+
+  const {email, password, loading} = state;
 
   const showFooter = () => {
     return (
@@ -64,12 +64,6 @@ const SignIn = (props) => {
     );
   };
 
-  const onChange = (key, value) => {
-    setState({[key]: value, emailErr: '', passwordErr: ''});
-  };
-
-  const {signInMain, lowBody} = styles;
-  const {email, password} = state;
 
   return (
     <View style={signInMain}>
@@ -108,13 +102,13 @@ const SignIn = (props) => {
               type="NONE"
               mainViewStyle={{marginLeft: -24}}
               title="Forgot password"
-              onPress={() => props.navigation.navigate('ForgotPassword')}
+              onPress={navigateForgot}
             />
             <ButtonCT
               type="LINEAR"
               title="Sign in"
-              // onPress={() => props.navigation.navigate('StackBottomApp')}
               onPress={handleSignIn}
+              loading={loading}
             />
           </View>
         </View>

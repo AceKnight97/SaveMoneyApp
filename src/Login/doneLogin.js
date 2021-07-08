@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginFrame from './Layout/loginFrame';
 import GlobalStyles from '../Styles';
-import ButtonCT from '../Components/Buttons/buttonCT'
+import ButtonCT from '../Components/Buttons/ButtonCT'
 
 const styles = StyleSheet.create({
   veriFyCodeMain: {

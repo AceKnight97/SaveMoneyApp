@@ -1,19 +1,20 @@
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import React, {useRef, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SvgXml} from 'react-native-svg';
-import ButtonCT from '../../Components/Buttons/buttonCT';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
+import DatepickerCT from '../../Components/Inputs/DatepickerCT';
 import DisplayMoney from '../../Components/UI/DisplayMoney';
 import {TODAY} from '../../Constant';
 import {useMergeState} from '../../Helper/customHooks';
 import moneyIc from '../../Images/Components/MoneyBox/money.svg';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
-import JournalStyle from './_journal';
-import DatepickerCT from '../../Components/Inputs/DatepickerCT';
 import {queryDailtyInfo} from './helper';
-import _ from 'lodash';
+import JournalStyle from './_journal';
 
 const {f1_wh_100, mt16, w_100} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
@@ -26,7 +27,6 @@ const {
 } = JournalStyle;
 
 const Journal = (props) => {
-  const dateRef = useRef(undefined);
   const [state, setState] = useMergeState({
     selectedDate: new Date(),
     dailyInfo: {
@@ -38,17 +38,17 @@ const Journal = (props) => {
     },
 
     loading: false,
-    isOpenIncomeModal: false,
-    isShowJournalDetails: false,
   });
 
   const {
     selectedDate,
     dailyInfo,
-    isOpenIncomeModal,
-    isShowJournalDetails,
     loading,
   } = state;
+
+  const onChange = (key, value) => {
+    setState({[key]: value});
+  };
 
   const fetchSelectedDateInfo = async () => {
     setState({loading: true});
@@ -67,7 +67,6 @@ const Journal = (props) => {
       });
     } else {
       _.assign(obj, {dailyInfo});
-      props.onChange('income', dailyInfo.income);
     }
     setState(obj);
   };
@@ -80,16 +79,11 @@ const Journal = (props) => {
 
   const {logs, income, notes, date} = dailyInfo;
 
-  const onChange = (key, value) => {
-    setState({[key]: value});
-  };
-
   const onPressDetail = () => {
     props.navigation.navigate('JournalDetails', {date});
   };
 
-  const toggleIncomeModal = () => {
-    // setState({isOpenIncomeModal: !isOpenIncomeModal})
+  const navigateToIncome = () => {
     props.navigation.navigate('JournalAddIncome');
   };
 
@@ -130,21 +124,21 @@ const Journal = (props) => {
   );
 
   return (
-    <>
-      <View style={f1_wh_100}>
-        <BottomAppHeader currentTab="Journal" />
+    <View style={f1_wh_100}>
+      <BottomAppHeader currentTab="Journal" income={income} />
 
-        <View style={bottom_App_Body}>{renderBody()}</View>
+      <View style={bottom_App_Body}>{renderBody()}</View>
 
-        <TouchableOpacity style={journal_income} onPress={toggleIncomeModal}>
-          <Text style={journal_income_title}>Income</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+      <TouchableOpacity style={journal_income} onPress={navigateToIncome}>
+        <Text style={journal_income_title}>Income</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 Journal.defaultProps = {};
-Journal.propTypes = {};
+Journal.propTypes = {
+  navigation: PropTypes.shape().isRequired,
+};
 
 export default Journal;

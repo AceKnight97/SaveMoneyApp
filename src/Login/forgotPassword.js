@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import LoginFrame from './Layout/loginFrame';
 import GlobalStyles from '../Styles';
 import InputCT from '../Components/Inputs/InputCT';
-import ButtonCT from '../Components/Buttons/buttonCT';
+import ButtonCT from '../Components/Buttons/ButtonCT';
 
 import emailIc from '../Images/Login/email.svg';
 import emailActIc from '../Images/Login/emailAct.svg';

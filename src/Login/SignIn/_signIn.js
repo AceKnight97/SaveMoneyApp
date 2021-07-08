@@ -1,13 +1,14 @@
 import {StyleSheet} from 'react-native';
 
-const InsightsStyles = StyleSheet.create({
-  mainView: {
+const SignInStyle = StyleSheet.create({
+  signInMain: {
     flex: 1,
     height: '100%',
     width: '100%',
-    justifyContent: 'center',
+  },
+  lowBody: {
+    marginTop: 40,
     alignItems: 'center',
   },
 });
-
-export default InsightsStyles;
+export default SignInStyle;

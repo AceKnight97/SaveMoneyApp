@@ -8,7 +8,7 @@ import GlobalStyles from '../../Styles';
 import {calcMoney, getMoneyAndSess, saveTodayNote} from '../../Ulti';
 import {Today, Sessions} from '../../Constant';
 import InputCT from '../../Components/Inputs/InputCT';
-import ButtonCT from '../../Components/Buttons/buttonCT';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
 import moneyBag from '../../Images/AddSpending/moneyBag.svg';
 import {colors} from '../../Constant/color';
 import AddSpendingStyles from '../../Styles/AddingPages/addSpending';

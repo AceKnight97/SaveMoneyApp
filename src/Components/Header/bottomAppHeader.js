@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, View} from 'react-native';
-import ButtonCT from '../../Components/Buttons/buttonCT';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
 import {BOTTOM_APP_NAME} from '../../Constant';
 import DisplayMoney from '../UI/DisplayMoney';
 import BottomAppHeaderStyle from './Style/_bottomAppHeader';
@@ -59,12 +59,14 @@ BottomAppHeader.defaultProps = {
   currentTab: '',
   title: '',
   logs: [],
+  income: 0,
 };
 BottomAppHeader.propTypes = {
   style: PropTypes.shape(),
   currentTab: PropTypes.string,
   title: PropTypes.string,
   logs: PropTypes.arrayOf(PropTypes.shape()),
+  income: PropTypes.number,
 };
 
 export default BottomAppHeader;

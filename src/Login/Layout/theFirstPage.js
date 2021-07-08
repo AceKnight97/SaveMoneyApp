@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ButtonCT from '../../Components/Buttons/buttonCT';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
 import { screenW } from '../../Constant';
 import GlobalStyles from '../../Styles';
 import LoginFrame from './loginFrame';

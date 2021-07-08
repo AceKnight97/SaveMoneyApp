@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {View} from 'react-native';
 import GlobalStyles from '../../../Styles';
-import ButtonCT from '../../Buttons/buttonCT';
+import ButtonCT from '../../Buttons/ButtonCT';
 import FooterButtons70Style from './_footerButtons70';
 
 const {f1_wh_100, w_100} = GlobalStyles;

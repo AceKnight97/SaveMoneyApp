@@ -6,7 +6,7 @@ import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
 import GlobalStyles from '../../Styles';
 import CardsList from './cardsList';
 import {Today, Sessions} from '../../Constant';
-import ButtonCT from '../../Components/Buttons/buttonCT';
+import ButtonCT from '../../Components/Buttons/ButtonCT';
 import {colors} from '../../Constant/color';
 import CompleteAddingStyles from '../../Styles/AddingPages/completeAdding';
 
