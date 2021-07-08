@@ -35,6 +35,7 @@
     ],
     "constructor-super": "warn",
     "valid-typeof": "warn",
+    "camelcase": "off",
     "max-len": [
       "warn",
       {

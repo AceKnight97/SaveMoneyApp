@@ -1,25 +1,25 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef} from 'react';
-import {KeyboardAvoidingView, ScrollView, Text, View} from 'react-native';
+import {KeyboardAvoidingView, ScrollView, View} from 'react-native';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import DatePickerCT from '../../Components/Inputs/DatepickerCT';
 import InputCT from '../../Components/Inputs/InputCT';
 import Switcher from '../../Components/Switcher';
+import FooterButtons70 from '../../Components/UI/FooterButtons70';
+import {MESSAGES} from '../../Constant/home';
 import {useMergeState} from '../../Helper/customHooks';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
-import FooterButtons70 from '../../Components/UI/FooterButtons70';
-import ProfileChangeInfoStyle from './_profileChangeInfo';
-import {MESSAGES} from '../../Constant/home';
 import {mutationChangePassword, mutationUpdateUser} from './helper';
+import ProfileChangeInfoStyle from './_profileChangeInfo';
 
 const {f1_wh_100, mt16, mt24, mt48} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
-const { main, wrapper } = ProfileChangeInfoStyle;
+const {main, wrapper} = ProfileChangeInfoStyle;
 
 const {
-  INCORRECT_PASSWORD,  PASSWORD_SHORTEST_6, PASSWORD_NOT_MATCHED, CAN_NOT_EMPTY, INVALID_PHONE_FORMAT
+  INCORRECT_PASSWORD, PASSWORD_SHORTEST_6, PASSWORD_NOT_MATCHED, CAN_NOT_EMPTY, INVALID_PHONE_FORMAT,
 }= MESSAGES;
 
 const ProfileChangeInfo = (props) => {
@@ -45,8 +45,8 @@ const ProfileChangeInfo = (props) => {
     loading: false,
   });
 
-  const { style } = props;
-  
+  const {style} = props;
+
   const userInfo = props.navigation.getParam('data'); // from Add Spending use ONCE
 
   useEffect(() => {

@@ -18,5 +18,10 @@ module.exports = {
     'react',
   ],
   'rules': {
+    'camelcase': 'off',
+    'max-len': [1, 200, 2, {
+      'ignorePattern': '^import\\s.+\\sfrom\\s.+;$',
+      'ignoreUrls': true,
+    }],
   },
 };
