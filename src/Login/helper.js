@@ -14,9 +14,9 @@ const {
 export const a = 'a';
 
 export const mutationSignIn = async (
-  email = '',
-  password = '',
-  loginRequest = () => {},
+    email = '',
+    password = '',
+    loginRequest = () => {},
 ) => {
   try {
     const login = await handleSignIn({
@@ -28,7 +28,7 @@ export const mutationSignIn = async (
     }
     const {token, user} = login;
     loginRequest({token, ...user});
-    return {};
+    return {loading: false};
   } catch (error) {
     console.log('Failed to login: ', error);
     return {passwordErr: LOGIN_ERROR, loading: false};

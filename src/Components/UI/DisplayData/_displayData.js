@@ -13,7 +13,7 @@ const DisplayDataStyle = StyleSheet.create({
   },
   dd_main: {
     display: 'flex',
-    flexDirection:'column'
+    flexDirection: 'column',
   },
   dd_item: {
     display: 'flex',
@@ -24,7 +24,7 @@ const DisplayDataStyle = StyleSheet.create({
   dd_content: {
     fontSize: 14,
     padding: 6,
-// backgroundColor:'red'
+    // backgroundColor:'red'
   },
   left_0: {
     width: '40%',
@@ -32,9 +32,6 @@ const DisplayDataStyle = StyleSheet.create({
   right_0: {
     width: '60%',
   },
-  strip: {
-    backgroundColor:'#f5f5f5',
-  }
 });
 
 export default DisplayDataStyle;

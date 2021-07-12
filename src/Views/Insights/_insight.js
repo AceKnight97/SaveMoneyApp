@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
 
-const InsightsStyles = StyleSheet.create({
-  mainView: {
+
+const InsightStyle = StyleSheet.create({
+  main: {
     flex: 1,
     height: '100%',
     width: '100%',
@@ -10,4 +11,4 @@ const InsightsStyles = StyleSheet.create({
   },
 });
 
-export default InsightsStyles;
+export default InsightStyle;

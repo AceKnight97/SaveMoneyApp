@@ -2,18 +2,21 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, View} from 'react-native';
+import GlobalStyles from '../../../Styles';
 import DisplayDataStyle from './_displayData';
 
 const {
   dd_wrapper,
   dd_main,
   dd_title,
-  strip,
   dd_item,
   dd_content,
   left_0,
   right_0,
 } = DisplayDataStyle;
+const {
+  strip,
+}=GlobalStyles;
 
 const DisplayData = (props) => {
   const {style, title, widthType} = props;
