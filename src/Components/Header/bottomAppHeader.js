@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import ButtonCT from '../../Components/Buttons/ButtonCT';
 import {BOTTOM_APP_NAME} from '../../Constant';
+import {getName} from '../../Helper';
+import auth from '../../Helper/auth';
+import {useMergeState} from '../../Helper/customHooks';
 import DisplayMoney from '../UI/DisplayMoney';
 import BottomAppHeaderStyle from './Style/_bottomAppHeader';
 
@@ -11,7 +14,23 @@ const {bah_wrapper, bah_title} = BottomAppHeaderStyle;
 const {JOURNAL, PROFILE, JOURNAL_DETAILS} = BOTTOM_APP_NAME;
 
 const BottomAppHeader = (props) => {
-  const {style, currentTab, income, title, logs} = props;
+  const [state, setState] = useMergeState({
+    gender: '',
+    username: '',
+    isVerified: false,
+  });
+  const {style, currentTab, income, logs, onPress} = props;
+
+  const fetchGenderName = async () => {
+    const {gender, username, isVerified} = await auth.getLoginData();
+    setState({gender, username, isVerified});
+  };
+
+  useEffect(() => {
+    fetchGenderName();
+  }, []);
+
+  const {gender, username, isVerified} = state;
 
   const renderRightContent = () => {
     switch (currentTab) {
@@ -28,7 +47,7 @@ const BottomAppHeader = (props) => {
           />
         );
       case PROFILE:
-        return (
+        return isVerified? null: (
           <ButtonCT
             UserTextStyle={{
               marginRight: -24,
@@ -36,6 +55,7 @@ const BottomAppHeader = (props) => {
             }}
             type="NONE"
             title="Not verified yet"
+            onPress={onPress}
           />
         );
       default:
@@ -43,11 +63,12 @@ const BottomAppHeader = (props) => {
     }
   };
 
+
   return (
     <View style={[bah_wrapper, style]}>
-      <View>
-        <Text style={bah_title}>{title || `Hello Mr. Ace!`}</Text>
-      </View>
+      <Text style={bah_title} ellipsizeMode='tail'
+        numberOfLines={1}
+      >{`Hello ${getName(gender, username)}!`}</Text>
 
       {renderRightContent()}
     </View>
@@ -60,6 +81,7 @@ BottomAppHeader.defaultProps = {
   title: '',
   logs: [],
   income: 0,
+  onPress: ()=>{},
 };
 BottomAppHeader.propTypes = {
   style: PropTypes.shape(),
@@ -67,6 +89,7 @@ BottomAppHeader.propTypes = {
   title: PropTypes.string,
   logs: PropTypes.arrayOf(PropTypes.shape()),
   income: PropTypes.number,
+  onPress: PropTypes.func,
 };
 
 export default BottomAppHeader;

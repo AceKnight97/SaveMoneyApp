@@ -1,4 +1,5 @@
 import {Datepicker} from '@ui-kitten/components';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View} from 'react-native';
@@ -25,7 +26,7 @@ const DatepickerCT = (props) => {
   const onSelectDate = (selectedDate) => {
     onChange(name, selectedDate);
   };
-  const {style, value, name, onChange, maxDate, title} = props;
+  const {style, value, name, onChange, maxDate, title, minDate} = props;
 
   const {isFocus} = state;
 
@@ -37,8 +38,9 @@ const DatepickerCT = (props) => {
         onFocus={onFocus}
         onBlur={onBlur}
         onSelect={onSelectDate}
-        date={value}
+        date={moment(value).isValid()?value: undefined}
         max={maxDate}
+        min={minDate}
         controlStyle={[controlStyle, isFocus ? activeBorder : {}]}
       />
     </View>
@@ -50,6 +52,7 @@ DatepickerCT.defaultProps = {
   onChange: () => {},
   value: undefined,
   maxDate: TODAY,
+  minDate: new Date(1900, 1, 1),
   title: '',
 };
 DatepickerCT.propTypes = {
@@ -59,6 +62,7 @@ DatepickerCT.propTypes = {
   value: PropTypes.shape(),
   maxDate: PropTypes.shape(),
   title: PropTypes.string,
+  minDate: PropTypes.shape(),
 };
 
 export default DatepickerCT;

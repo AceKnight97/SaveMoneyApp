@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import moment from 'moment';
-import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+import React, {useEffect, useRef} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import ButtonCT from '../../Components/Buttons/ButtonCT';
@@ -27,6 +27,7 @@ const {
 } = JournalStyle;
 
 const Journal = (props) => {
+  const isFirst = useRef(true);
   const [state, setState] = useMergeState({
     selectedDate: new Date(),
     dailyInfo: {
@@ -36,14 +37,11 @@ const Journal = (props) => {
       income: 0,
       notes: '',
     },
-
-    loading: false,
   });
 
   const {
     selectedDate,
     dailyInfo,
-    loading,
   } = state;
 
   const onChange = (key, value) => {
@@ -51,10 +49,10 @@ const Journal = (props) => {
   };
 
   const fetchSelectedDateInfo = async () => {
-    setState({loading: true});
+    // setState({loading: true});
     const dailyInfo = await queryDailtyInfo(state.selectedDate);
-    console.log({dailyInfo});
-    const obj = {loading: false};
+    // console.log({dailyInfo});
+    const obj = {};
     if (_.isEmpty(dailyInfo)) {
       _.assign(obj, {
         dailyInfo: {
@@ -72,19 +70,26 @@ const Journal = (props) => {
   };
 
   useEffect(() => {
-    if (state.selectedDate) {
+    fetchSelectedDateInfo();
+  }, []);
+
+  useEffect(() => {
+    console.log({back: props.navigation.getParam('back')});
+    if (state.selectedDate && !isFirst.current) {
       fetchSelectedDateInfo();
+    } else {
+      isFirst.current = false;
     }
-  }, [state.selectedDate]);
+  }, [state.selectedDate, props.navigation.getParam('back')]);
 
   const {logs, income, notes, date} = dailyInfo;
 
   const onPressDetail = () => {
-    props.navigation.navigate('JournalDetails', {date});
+    props.navigation.navigate('JournalDetails', {dailyInfo});
   };
 
   const navigateToIncome = () => {
-    props.navigation.navigate('JournalAddIncome');
+    props.navigation.navigate('JournalAddIncome', {dailyInfo});
   };
 
   const renderBody = () => (
@@ -106,11 +111,9 @@ const Journal = (props) => {
       <Text style={journal_achievement}>Achievement</Text>
 
       <View style={journal_money_box}>
-        <View style={{height: 124, width: 124}}>
-          <SvgXml xml={moneyIc} />
-        </View>
+        <SvgXml xml={moneyIc} height='124' width='124' />
 
-        <DisplayMoney style={{marginVertical: 16}} />
+        <DisplayMoney logs={logs} style={{marginVertical: 16}} />
 
         <ButtonCT
           style={w_100}
@@ -124,7 +127,7 @@ const Journal = (props) => {
   );
 
   return (
-    <View style={f1_wh_100}>
+    <View style={f1_wh_100} >
       <BottomAppHeader currentTab="Journal" income={income} />
 
       <View style={bottom_App_Body}>{renderBody()}</View>

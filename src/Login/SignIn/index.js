@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 import ButtonCT from '../../Components/Buttons/ButtonCT';
 import InputCT from '../../Components/Inputs/InputCT';
+import {isValidEmail} from '../../Helper';
 import {useMergeState} from '../../Helper/customHooks';
 import emailIc from '../../Images/Login/email.svg';
 import emailActIc from '../../Images/Login/emailAct.svg';
@@ -36,7 +37,29 @@ const SignIn = (props) => {
     }
   }, [props.login]);
 
+  useEffect(() => {
+    const {email, password} = props.navigation.getParam('signUpData') ||{};
+    if (email &&password) {
+      setState({email, password});
+    }
+  }, [props.navigation.getParam('signUpData')]);
+
+  const {email, password, loading,
+    emailErr, passwordErr,
+  } = state;
+
+  const isDisabled = () => {
+    if (!email?.trim() || !password?.trim() || password?.length< 6) {
+      return true;
+    }
+    return false;
+  };
+
   const handleSignIn = async () => {
+    if (!isValidEmail(email)) {
+      setState({emailErr: 'Invalid email format!'});
+      return;
+    }
     setState({loading: true});
     const res = await mutationSignIn(email, password, props.loginRequest);
     setState(res);
@@ -49,12 +72,12 @@ const SignIn = (props) => {
     props.navigation.navigate('ForgotPassword');
   };
 
-  const {email, password, loading} = state;
 
   const showFooter = () => {
     return (
       <View style={{paddingHorizontal: 24}}>
         <ButtonCT
+          disabled={loading}
           type="ROUND"
           style={{}}
           title="Sign up"
@@ -67,7 +90,7 @@ const SignIn = (props) => {
 
   return (
     <View style={signInMain}>
-      <LoginFrame showFooter={showFooter}>
+      <LoginFrame showFooter={showFooter} >
         <View style={flexColumn}>
           <InputCT
             title="Email"
@@ -81,6 +104,7 @@ const SignIn = (props) => {
             }}
             returnKeyType="next"
             keyboardType="email-address"
+            errMes={emailErr}
           />
 
           <InputCT
@@ -96,6 +120,7 @@ const SignIn = (props) => {
               nextInput1 = nextInput1;
             }}
             returnKeyType="done"
+            errMes={passwordErr}
           />
           <View style={[frsb, lowBody]}>
             <ButtonCT
@@ -107,6 +132,7 @@ const SignIn = (props) => {
             <ButtonCT
               type="LINEAR"
               title="Sign in"
+              disabled={isDisabled()}
               onPress={handleSignIn}
               loading={loading}
             />

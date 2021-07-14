@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, View, } from 'react-native';
+import {ScrollView, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Avatar from '../../Components/Avatar';
@@ -14,6 +14,7 @@ import ViewsStyle from '../Style';
 import {getAppInfo, getLogInfo, getUerInfo, queryUserData} from './helper';
 import ProfileStyle from './_profile';
 import _ from 'lodash';
+import VerifyAccountModal from '../../Components/Modals/VerifyAccountModal';
 
 const {f1_wh_100, mt16} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
@@ -29,31 +30,37 @@ const {red2, red1} = colors;
 const Profile = (props) => {
   const [state, setState] = useMergeState({
     modalInfo: {},
-    patientData:{},
+    patientData: {},
     loading: false,
+    isOpenVerifyModal: false,
   });
 
   const logOut = () => {
     props.logoutRequest();
     props.navigation.navigate('SignInStack');
-  }
+  };
 
   const fetchUserData = async () => {
-    setState({ loading: true });
+    setState({loading: true});
     const patientData = await queryUserData();
     if (_.isEmpty(patientData)) {
       logOut();
     }
-    setState({ loading: false, patientData });
+    setState({loading: false, patientData});
   };
 
   useEffect(() => {
+    console.log({
+      back: props.navigation.getParam('back'),
+    });
     fetchUserData();
-  }, []);
+  }, [props.navigation.getParam('back')]);
 
-  const {patientData, modalInfo, loading} = state;
+  const {patientData, modalInfo, loading, isOpenVerifyModal} = state;
 
-  const {style} = props;
+  const onToggleModal = () =>{
+    setState({isOpenVerifyModal: !state.isOpenVerifyModal});
+  };
 
   const onPressChangeInfo = () => {
     props.navigation.navigate('ProfileChangeInfo', {data: patientData});
@@ -66,6 +73,7 @@ const Profile = (props) => {
 
         <View style={profile_header_right}>
           <NewButton
+            disabled={loading}
             type="primary"
             style={{width: 186}}
             // style={profile_change_info}
@@ -74,6 +82,7 @@ const Profile = (props) => {
           />
 
           <NewButton
+            loading={loading}
             type="danger"
             style={{width: 186}}
             // style={profile_sign_out_btn}
@@ -102,21 +111,24 @@ const Profile = (props) => {
     </View>
   );
   return (
-    <ScrollView style={f1_wh_100} showsVerticalScrollIndicator={false}>
-      <BottomAppHeader currentTab="Profile" />
+    <>
+      <ScrollView style={f1_wh_100} showsVerticalScrollIndicator={false}>
+        <BottomAppHeader currentTab="Profile" onPress={onToggleModal} />
 
-      <View style={bottom_App_Body}>{renderBody()}</View>
-    </ScrollView>
+        <View style={bottom_App_Body}>{renderBody()}</View>
+      </ScrollView>
+
+      <VerifyAccountModal isVisible={isOpenVerifyModal} onClickCancel={onToggleModal}/>
+    </>
   );
 };
 Profile.defaultProps = {
-  className: '',
   fetchUserData: () => {},
 };
 Profile.propTypes = {
-  className: PropTypes.string,
   logoutRequest: PropTypes.func.isRequired,
   fetchUserData: PropTypes.func,
+  navigation: PropTypes.shape().isRequired,
 };
 
 const mapDispatchToProps = {

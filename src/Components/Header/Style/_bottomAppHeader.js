@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const BottomAppHeaderStyle = StyleSheet.create({
   bah_wrapper: {
@@ -14,6 +14,9 @@ const BottomAppHeaderStyle = StyleSheet.create({
   bah_title: {
     fontSize: 18,
     fontWeight: 'bold',
+    maxWidth: '50%',
+    // width: 200,
+    // backgroundColor: 'red',
   },
 });
 

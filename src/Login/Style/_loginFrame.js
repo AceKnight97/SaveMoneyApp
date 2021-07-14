@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
+import {screenH} from '../../Constant';
 import {colors} from '../../Constant/color';
 
 const LoginFrameStyle = StyleSheet.create({
   frameWarpper: {
     backgroundColor: 'white',
     paddingVertical: '7.5%',
-    flex: 1,
-    height: '100%',
+    // flex: 1,
+    height: screenH,
     width: '100%',
   },
   header: {
@@ -17,9 +18,10 @@ const LoginFrameStyle = StyleSheet.create({
   headerText: {
     fontSize: 48,
     color: colors.green1,
-    // color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    margin: 48,
+    // backgroundColor: 'green',
   },
   body: {
     flex: 1,

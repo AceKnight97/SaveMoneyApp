@@ -14,6 +14,10 @@ export const MESSAGES = {
   LOGIN_FAILED: 'Incorrect email or password',
   LOGIN_ERROR: 'Failed to login. Please try again!',
 
+  SIGN_UP_FAILED: 'Failed to sign up. Please try again!',
+  SIGN_UP_SUCCESS: 'Sign up successfully!',
+
+
   INVALID_CODE: 'Verification code is invalid. Please try again!',
   NEW_PASSWORD_INVALID: 'New password is invalid. Please try again!',
   PASSWORD_NOT_MATCHED: 'The passwords do not match. Please try again!',

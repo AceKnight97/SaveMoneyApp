@@ -76,7 +76,6 @@ const Insights = (props) => {
       <View style={{
         height: '50%',
         width: '100%',
-        // backgroundColor: 'red',
       }}>
         <LineChartCT
           thisMonthData={thisMonthData}

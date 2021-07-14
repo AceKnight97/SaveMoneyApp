@@ -1,6 +1,9 @@
 import handleSignIn from '../Apollo/Functions/Handle/handleSignIn';
+import handleSignUp from '../Apollo/Functions/Handle/handleSignUp';
+import handleResetPassword from '../Apollo/Functions/Handle/handleResetPassword';
+import handleForgotPassword from '../Apollo/Functions/Handle/handleForgotPassword';
 import {MESSAGES} from '../Constant/home';
-import auth from '../Helper/auth';
+import {showNotification} from '../Helper/notification';
 
 const {
   FORGOT_SUCCESS_SENDING,
@@ -9,9 +12,9 @@ const {
   LOGIN_ERROR,
   RESET_SUCCESS_SENDING,
   INVALID_CODE,
+  SIGN_UP_FAILED,
+  SIGN_UP_SUCCESS,
 } = MESSAGES;
-
-export const a = 'a';
 
 export const mutationSignIn = async (
     email = '',
@@ -32,5 +35,50 @@ export const mutationSignIn = async (
   } catch (error) {
     console.log('Failed to login: ', error);
     return {passwordErr: LOGIN_ERROR, loading: false};
+  }
+};
+
+export const mutationSignUp = async (
+    email = '', password = '', username = '',
+) => {
+  try {
+    await handleSignUp({
+      email,
+      password,
+      username,
+    });
+    showNotification(SIGN_UP_SUCCESS);
+    return true;
+  } catch (error) {
+    showNotification(SIGN_UP_FAILED);
+    console.log('Failed to call sign up: ', error);
+    return false;
+  }
+};
+
+export const mutationForgotPassword = async (email = '') => {
+  try {
+    await handleForgotPassword({
+      email,
+    });
+    showNotification(FORGOT_SUCCESS_SENDING);
+    return {};
+  } catch (error) {
+    console.log('Failed to handleForgotPassword: ', error);
+    return {emailErr: FORGOT_PASSWORD_FAILED};
+  }
+};
+
+export const mutationResetPassword = async (verificationCode = '', password = '') => {
+  try {
+    await handleResetPassword({
+      verificationCode,
+      password,
+    });
+    showNotification(RESET_SUCCESS_SENDING);
+    return {};
+  } catch (error) {
+    console.log('Failed to handleForgotPassword: ', error);
+    return {invalidCode: INVALID_CODE};
   }
 };

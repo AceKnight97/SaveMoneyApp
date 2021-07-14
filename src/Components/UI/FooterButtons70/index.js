@@ -32,14 +32,14 @@ const FooterButtons70 = (props) => {
       />
       <View style={rightBtn}>
         <ButtonCT
+          loading={loading}
           type="LINEAR"
-          style={w_100}
+          style={[w_100, rightStyle]}
           userTextStyle={{
             width: '100%',
             textAlign: 'center',
           }}
           title={rightTitle}
-          style={rightStyle}
           onPress={rightOnPress}
           disabled={disabled}
         />

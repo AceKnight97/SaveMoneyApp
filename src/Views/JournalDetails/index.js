@@ -12,6 +12,7 @@ import GlobalStyles from '../../Styles';
 import NewButton from '../../Components/Buttons/NewButton';
 import JournalDetailsStyle from './_journalDetails';
 import {mutationLogs} from './helper';
+import SuccessModal from '../../Components/UI/SuccessPage';
 
 const {footer_btns} = JournalDetailsStyle;
 const {f1_wh_100} = GlobalStyles;
@@ -25,36 +26,35 @@ const STATUS = {
 const {ADD, EDIT, DISPLAY} = STATUS;
 
 const JournalDetails = (props) => {
-  const date = props.navigation.getParam('date');
+  const dailyInfo = props.navigation.getParam('dailyInfo');
+  const paramsLogs = dailyInfo?.logs || [];
   const [state, setState] = useMergeState({
-    logs: _.cloneDeep(props.navigation.getParam('logs')) || [],
+    logs: _.cloneDeep(paramsLogs),
     cardItem: {},
 
     isShowResetModal: false,
     isReviewing: false,
-    isCompleted: false,
-    current: props.logs?.length === 0 ? ADD : DISPLAY,
+    current: paramsLogs.length === 0 ? ADD : DISPLAY,
     loading: false,
-  });
 
-  const onChange = (key, value) => {
-    setState({[key]: value});
-  };
+    isSuccess: false,
+  });
 
   const isDisplay = useMemo(() => state.current === DISPLAY, [state.current]);
 
   const isEdit = useMemo(() => state.current === EDIT, [state.current]);
-
-  const {style, onClickBackToJournal} = props;
 
   const {
     cardItem,
     logs,
     isShowResetModal,
     isReviewing,
-    isCompleted,
-    loading,
+    isSuccess,
   } = state;
+
+  const onPressGoBack = () => {
+    props.navigation.navigate('Journal', state.isSuccess? {back: _.random(9999)}:{});
+  };
 
   const onClickBack = () => {
     if (isReviewing) {
@@ -99,14 +99,15 @@ const JournalDetails = (props) => {
 
   const onClickComplete = async () => {
     setState({loading: true});
+    const {date, id} =dailyInfo||{};
     const res = await mutationLogs({
-      id: props.id,
-      date: props.date,
+      id,
+      date,
       logs,
     });
     const obj = {loading: false};
     if (res) {
-      _.assign(obj, {isCompleted: true});
+      _.assign(obj, {isSuccess: true});
     }
     setState(obj);
   };
@@ -136,15 +137,15 @@ const JournalDetails = (props) => {
       )}
 
       <NewButton
-        disabled={logs?.length === 0 || (isEdit && _.isEqual(props.logs, logs))}
+        disabled={logs?.length === 0 || (isEdit && _.isEqual(paramsLogs, logs))}
         type="primary"
         title={isDisplay ? 'Edit' : isReviewing ? 'Complete' : 'Review'}
         onPress={
-          isDisplay
-            ? onClickEdit
-            : isReviewing
-            ? onClickComplete
-            : onClickReview
+          isDisplay ?
+            onClickEdit :
+            isReviewing ?
+            onClickComplete :
+            onClickReview
         }
       />
     </View>
@@ -152,21 +153,26 @@ const JournalDetails = (props) => {
 
   return (
     <>
-      <View style={f1_wh_100}>
-        <BottomAppHeader
-          title={moment(date || undefined).format('ddd - DD/MM/YY')}
-          currentTab="Journal_Details"
-          logs={logs}
-        />
+      {
+      isSuccess ? (
+        <SuccessModal onClickBack={onPressGoBack} />):(
+          <View style={f1_wh_100}>
+            <BottomAppHeader
+              title={dailyInfo.date}
+              currentTab="Journal_Details"
+              logs={logs}
+            />
 
-        <CardList
-          logs={logs}
-          onPress={onPressCardItem}
-          isReviewing={isReviewing || isDisplay}
-        />
+            <CardList
+              logs={logs}
+              onPress={onPressCardItem}
+              isReviewing={isReviewing || isDisplay}
+            />
 
-        {renderFooters()}
-      </View>
+            {renderFooters()}
+          </View>
+        )
+      }
 
       <AddMoneyModal
         cardItem={cardItem}
@@ -183,18 +189,11 @@ const JournalDetails = (props) => {
   );
 };
 JournalDetails.defaultProps = {
-  id: '',
   style: {},
-  date: moment(),
-  onClickBackToJournal: () => {},
-  logs: [],
 };
 JournalDetails.propTypes = {
-  id: PropTypes.string,
   style: PropTypes.shape(),
-  date: PropTypes.shape(),
-  onClickBackToJournal: PropTypes.func,
-  logs: PropTypes.arrayOf(PropTypes.shape()),
+  navigation: PropTypes.shape().isRequired,
 };
 
 export default JournalDetails;

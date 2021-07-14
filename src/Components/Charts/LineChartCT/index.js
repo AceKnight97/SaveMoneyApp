@@ -1,6 +1,5 @@
-import _ from 'lodash';
-import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {
   processColor, Text, View,
 } from 'react-native';
@@ -17,6 +16,8 @@ const red = 'orangered';
 const yellow = 'orange';
 
 // https://react-native-explorer.firebaseapp.com/package/react-native-charts-wrapper#example-code
+// https://github.com/wuxudong/react-native-charts-wrapper/blob/master/docs.md
+
 
 const LineChartCT = (props)=> {
   const [state, setState] = useMergeState({
@@ -78,7 +79,6 @@ const LineChartCT = (props)=> {
             // enabled: false,
           }}
           marker={{
-
             enabled: true,
             digits: 2,
             backgroundTint: processColor('teal'),
@@ -101,8 +101,8 @@ const LineChartCT = (props)=> {
             },
           }}
           drawGridBackground={false}
-          borderColor={processColor('teal')}
-          borderWidth={1}
+          // borderColor={processColor('#ff00ff')}
+          // borderWidth={1}
           // drawBorders
           // autoScaleMinMaxEnabled={false}
           // touchEnabled

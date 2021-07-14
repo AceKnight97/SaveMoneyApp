@@ -56,6 +56,7 @@ const InputCT = (props) => {
     inputStyle,
     name,
     errMes,
+    onRef,
   } = props;
   const {isFocus, isSecured} = state;
 
@@ -102,6 +103,7 @@ const InputCT = (props) => {
         {icon ? <SvgXml xml={icon} style={mr8} /> : null}
 
         <TextInput
+          ref={onRef}
           editable={!disabled}
           autoFocus={autoFocus}
           returnKeyType={returnKeyType} // done or next
@@ -162,6 +164,7 @@ InputCT.defaultProps = {
   inputStyle: {},
   name: '',
   errMes: '',
+  onRef: undefined,
 };
 InputCT.propTypes = {
   title: PropTypes.string,
@@ -183,6 +186,7 @@ InputCT.propTypes = {
   inputStyle: PropTypes.shape(),
   name: PropTypes.string,
   errMes: PropTypes.string,
+  onRef: PropTypes.func,
 };
 
 export default InputCT;

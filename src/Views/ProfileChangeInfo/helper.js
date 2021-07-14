@@ -2,14 +2,16 @@ import moment from 'moment';
 import handleChangePassword from '../../Apollo/Functions/Handle/handleChangePassword';
 import handleUpdateUser from '../../Apollo/Functions/Handle/handleUpdateUser';
 import {MESSAGES} from '../../Constant/home';
+import auth from '../../Helper/auth';
 import {showNotification} from '../../Helper/notification';
 
 const PROFILE_MESSAGES = {
   FAILED_UPDATED: 'Failed to change user info. Please check info format and try again!',
+  SUCCESS_UPDATED: 'Change user info successfully!',
 };
 
 const {
-  FAILED_UPDATED,
+  FAILED_UPDATED, SUCCESS_UPDATED,
 } = PROFILE_MESSAGES;
 
 export const mutationUpdateUser = async (data = {}) => {
@@ -26,6 +28,9 @@ export const mutationUpdateUser = async (data = {}) => {
         phone,
       },
     });
+    showNotification(SUCCESS_UPDATED);
+
+    await auth.updateGenderName(gender, username);
     return true;
   } catch (error) {
     showNotification(FAILED_UPDATED);

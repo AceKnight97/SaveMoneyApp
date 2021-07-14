@@ -2,6 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import fetchMe from '../../Apollo/Functions/Fetch/fetchMe';
 import handleVerifiedEmail from '../../Apollo/Functions/Handle/handleVerifiedEmail';
+import auth from '../../Helper/auth';
 
 
 export const queryUserData = async () => {
@@ -22,11 +23,11 @@ export const queryUserData = async () => {
 };
 
 export const mutationVerifyAccount = async (verificationCode = '') => {
-  console.log({verificationCode});
   try {
     await handleVerifiedEmail({
       verificationCode,
     });
+    await auth.updateVerify();
     return true;
   } catch (error) {
     console.log('Failed to verify: ', error);

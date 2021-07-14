@@ -24,7 +24,7 @@ export const getContent = (array = [], income = 0) => [
     data: income,
   },
   {
-    title: '- Money left:',
+    title: '- Left:',
     data: Math.ceil((income - _.sum(array)) * 100) / 100,
   },
 ];

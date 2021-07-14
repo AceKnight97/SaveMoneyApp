@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import NewButtonStyle from './_newButton';
 
 const {
@@ -25,10 +25,11 @@ const BUTTON_TYPES = {
 const {primary, text, danger} = BUTTON_TYPES;
 
 const NewButton = (props) => {
-  const {style, title, onPress, type, disabled} = props;
+  const {style, title, onPress, type, disabled, loading} = props;
 
   let customStyle;
   let customTextStyle;
+  let isDanger = false;
   switch (type) {
     case primary:
       customStyle = primary_style;
@@ -39,6 +40,7 @@ const NewButton = (props) => {
       customTextStyle = text_text_style;
       break;
     case danger:
+      isDanger = true;
       customStyle = danger_style;
       customTextStyle = danger_text_style;
       break;
@@ -51,14 +53,16 @@ const NewButton = (props) => {
       disabled={disabled}
       style={[main, customStyle, style, disabled ? disabled_style : {}]}
       onPress={onPress}>
-      <Text
-        style={[
-          main_text,
-          customTextStyle,
+      {
+        loading? <ActivityIndicator color={isDanger? 'red':'#ffffff'} />:
+        <Text
+          style={[
+            main_text,
+            customTextStyle,
           disabled ? disabled_text_style : {},
-        ]}>
-        {title}
-      </Text>
+          ]}>
+          {title}
+        </Text>}
     </TouchableOpacity>
   );
 };
@@ -67,6 +71,7 @@ NewButton.defaultProps = {
   onPress: () => {},
   type: text,
   disabled: false,
+  loading: false,
   title: '',
   type: text,
 };
@@ -74,6 +79,7 @@ NewButton.propTypes = {
   style: PropTypes.shape(),
   onPress: PropTypes.func,
   disabled: PropTypes.bool,
+  loading: PropTypes.bool,
   title: PropTypes.string,
   type: PropTypes.string,
 };

@@ -103,7 +103,7 @@ const ProfileChangeInfo = (props) => {
     });
     setState({loading: false});
     if (res) {
-      props.onClickSave();
+      props.navigation.navigate('Profile', {back: _.random(99999)});
     }
   };
 
@@ -299,6 +299,7 @@ const ProfileChangeInfo = (props) => {
         leftOnPress={onClickCancel}
         rightOnPress={onClickChange}
         disabled={isDisabled()}
+        loading={loading}
       />
 
     </View>
