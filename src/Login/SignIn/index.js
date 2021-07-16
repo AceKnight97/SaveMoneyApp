@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
 import ButtonCT from '../../Components/Buttons/ButtonCT';
@@ -17,14 +17,15 @@ import LoginFrame from '../Layout/loginFrame';
 import SignInStyle from './_signIn';
 
 
-const {mt24, frsb, flexColumn} = GlobalStyles;
+const {mt24, flexColumn} = GlobalStyles;
 
 const {signInMain, lowBody} = SignInStyle;
 
 const SignIn = (props) => {
+  const nextInput1= useRef(undefined);
   const [state, setState] = useMergeState({
-    email: 'ace1@gmail.com',
-    password: '12345678',
+    email: '',
+    password: '',
     emailErr: '',
     passwordErr: '',
 
@@ -38,11 +39,11 @@ const SignIn = (props) => {
   }, [props.login]);
 
   useEffect(() => {
-    const {email, password} = props.navigation.getParam('signUpData') ||{};
+    const {email, password} = props.navigation.getParam('passingData') ||{};
     if (email &&password) {
       setState({email, password});
     }
-  }, [props.navigation.getParam('signUpData')]);
+  }, [props.navigation.getParam('passingData')]);
 
   const {email, password, loading,
     emailErr, passwordErr,
@@ -72,6 +73,9 @@ const SignIn = (props) => {
     props.navigation.navigate('ForgotPassword');
   };
 
+  const navigateSignUp = () => {
+    props.navigation.navigate('SignUp');// ForgotPassword
+  };
 
   const showFooter = () => {
     return (
@@ -79,9 +83,8 @@ const SignIn = (props) => {
         <ButtonCT
           disabled={loading}
           type="ROUND"
-          style={{}}
           title="Sign up"
-          onPress={() => props.navigation.navigate('SignUp')}
+          onPress={navigateSignUp}
         />
       </View>
     );
@@ -100,7 +103,7 @@ const SignIn = (props) => {
             placeholder="Email"
             icon={email ? emailActIc : emailIc}
             onSubmitEditing={() => {
-              nextInput1.focus();
+              nextInput1.current.focus();
             }}
             returnKeyType="next"
             keyboardType="email-address"
@@ -116,13 +119,13 @@ const SignIn = (props) => {
             placeholder="Password"
             icon={password ? pswActIc : pswIc}
             isSecured
-            onRef={(nextInput1) => {
-              nextInput1 = nextInput1;
+            onRef={(input) => {
+              nextInput1.current = input;
             }}
             returnKeyType="done"
             errMes={passwordErr}
           />
-          <View style={[frsb, lowBody]}>
+          <View style={lowBody}>
             <ButtonCT
               type="NONE"
               mainViewStyle={{marginLeft: -24}}

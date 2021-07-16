@@ -6,7 +6,7 @@ import BottomAppHeader from '../../Components/Header/bottomAppHeader';
 import DatepickerCT from '../../Components/Inputs/DatepickerCT';
 import InputCT from '../../Components/Inputs/InputCT';
 import FooterButtons70 from '../../Components/UI/FooterButtons70';
-import SuccessModal from '../../Components/UI/SuccessPage';
+import SuccessPage from '../../Components/UI/SuccessPage';
 import {TODAY} from '../../Constant';
 import {useMergeState} from '../../Helper/customHooks';
 import incomeIc from '../../Images/Pages/Journal/income.jpg';
@@ -30,7 +30,7 @@ const JournalAddIncome = (props) => {
 
   const fetchSelectedDateInfo = async () => {
     const dailyInfo = await queryDailtyInfo(state.date);
-    console.log({dailyInfo});
+    // console.log({dailyInfo});
     const obj = {};
     if (_.isEmpty(dailyInfo)) {
       _.assign(obj, {
@@ -116,7 +116,7 @@ const JournalAddIncome = (props) => {
 
   return (
       isSuccess ? (
-        <SuccessModal onClickBack={onPressGoBack} />):
+        <SuccessPage onClickBack={onPressGoBack} />):
    ( <View style={f1_wh_100}>
      <BottomAppHeader title="Add your income" />
 

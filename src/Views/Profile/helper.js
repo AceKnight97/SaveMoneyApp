@@ -8,7 +8,7 @@ import auth from '../../Helper/auth';
 export const queryUserData = async () => {
   try {
     const profile = await fetchMe();
-    console.log({profile});
+    // console.log({profile});
     if (_.isEmpty(profile)) {
       return {};
     }
@@ -110,19 +110,21 @@ export const getLogInfo = (data = {}) => {
 };
 
 export const getAppInfo = () => {
-  const a = '';
+  const status = 'Early access.';
+  const version = '1.0.3';
+  const dateRelease = '16-07-2021';
   return [
     {
       title: 'Type:',
-      data: 'Early access.',
+      data: status,
     },
     {
       title: 'Version:',
-      data: '0.0.0',
+      data: version,
     },
     {
       title: 'Release date:',
-      data: moment().format('DD-MM-YYYY'),
+      data: dateRelease,
     },
   ];
 };

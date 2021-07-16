@@ -39,6 +39,15 @@ export const mutationLogs = async (data = {}) => {
     }
   } else {
     try {
+      console.log({
+        input: {
+          date: moment(date).format('DD/MM/YYYY'),
+          logs: formatLogs(logs),
+          income: 0,
+          notes: '',
+        },
+        logs: formatLogs(logs),
+      });
       await handleAddDailyInfo({
         input: {
           date: moment(date).format('DD/MM/YYYY'),

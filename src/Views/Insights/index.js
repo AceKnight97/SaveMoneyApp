@@ -1,20 +1,21 @@
+import _ from 'lodash';
+import moment from 'moment';
 import React, {useEffect, useRef} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
+import LineChartCT from '../../Components/Charts/LineChartCT';
 import BottomAppHeader from '../../Components/Header/bottomAppHeader';
+import MonthlySummary from '../../Components/UI/MonthlySummary';
+import MonthSelector from '../../Components/UI/MonthSelector';
+import auth from '../../Helper/auth';
+import {useMergeState} from '../../Helper/customHooks';
 import GlobalStyles from '../../Styles';
 import ViewsStyle from '../Style';
-import MonthSelector from '../../Components/UI/MonthSelector';
-import MonthlySummary from '../../Components/UI/MonthlySummary';
-import {useMergeState} from '../../Helper/customHooks';
-import LineChartCT from '../../Components/Charts/LineChartCT';
-import moment from 'moment';
-import _ from 'lodash';
-import InsightStyle from './_insight';
 import {queryInsight} from './helper';
+import InsightStyle from './_insight';
 
-const {f1_wh_100, mt16, mt24, w_100} = GlobalStyles;
+const {f1_wh_100, mt24} = GlobalStyles;
 const {bottom_App_Body} = ViewsStyle;
-const {main} = InsightStyle;
+const {body, top} = InsightStyle;
 
 const Insights = (props) => {
   const isTheFirst = useRef(true);
@@ -23,7 +24,15 @@ const Insights = (props) => {
     thisMonthData: [],
     otherMonthData: [],
     loading: false,
+    firstDate: moment().subtract(10, 'years'),
   });
+
+  const getFirstDate = async ()=>{
+    const {firstDate} = await auth.getLoginData();
+    if (firstDate) {
+      setState({firstDate: moment(firstDate, 'DD/MM/YYYY')});
+    }
+  };
 
   const fetchInishgtData = async (isFirst = false) => {
     setState({loading: true});
@@ -51,32 +60,21 @@ const Insights = (props) => {
     selectedMonth,
     thisMonthData, otherMonthData,
     thisMonthIncomes, otherMonthIncomes,
+    firstDate,
   } = state;
-  console.log({
-    thisMonthData,
-    otherMonthData,
-  });
 
   useEffect(() => {
     fetchInishgtData(isTheFirst.current);
     if (isTheFirst.current) {
+      getFirstDate();
       isTheFirst.current = false;
     }
   }, [state.selectedMonth]);
 
   const renderBody = () => (
-    <View style={{
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-    }}>
+    <View style={body}>
 
-      <View style={{
-        height: '50%',
-        width: '100%',
-      }}>
+      <View style={top}>
         <LineChartCT
           thisMonthData={thisMonthData}
           otherMonthData={otherMonthData}
@@ -86,6 +84,7 @@ const Insights = (props) => {
       <MonthSelector
         onChange={onChange}
         selectedMonth={selectedMonth}
+        disabled={moment(firstDate).valueOf()> moment(selectedMonth).valueOf()}
       />
 
       <MonthlySummary style={mt24}

@@ -224,6 +224,7 @@ const ProfileChangeInfo = (props) => {
         onChange={onChange}
         value={address}
         placeholder='Enter your address'
+        maxLength={100}
       />
       <InputCT
         style={mt24}
@@ -234,6 +235,7 @@ const ProfileChangeInfo = (props) => {
         value={phone}
         placeholder='081 - 954 - 1897'
         type='NUMBER'
+        maxLength={11}
         errMes={phoneErr}
       />
     </>

@@ -51,7 +51,7 @@ const Journal = (props) => {
   const fetchSelectedDateInfo = async () => {
     // setState({loading: true});
     const dailyInfo = await queryDailtyInfo(state.selectedDate);
-    // console.log({dailyInfo});
+    console.log({dailyInfo});
     const obj = {};
     if (_.isEmpty(dailyInfo)) {
       _.assign(obj, {
@@ -74,7 +74,7 @@ const Journal = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log({back: props.navigation.getParam('back')});
+    // console.log({back: props.navigation.getParam('back')});
     if (state.selectedDate && !isFirst.current) {
       fetchSelectedDateInfo();
     } else {

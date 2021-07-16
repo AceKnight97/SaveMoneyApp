@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View} from 'react-native';
+import {screenW} from '../../../Constant';
 import GlobalStyles from '../../../Styles';
 import ButtonCT from '../../Buttons/ButtonCT';
 import FooterButtons70Style from './_footerButtons70';
@@ -30,20 +32,17 @@ const FooterButtons70 = (props) => {
         onPress={leftOnPress}
         disabled={loading}
       />
-      <View style={rightBtn}>
-        <ButtonCT
-          loading={loading}
-          type="LINEAR"
-          style={[w_100, rightStyle]}
-          userTextStyle={{
-            width: '100%',
-            textAlign: 'center',
-          }}
-          title={rightTitle}
-          onPress={rightOnPress}
-          disabled={disabled}
-        />
-      </View>
+      <ButtonCT
+        loading={loading}
+        type="LINEAR"
+        style={rightStyle}
+        userTextStyle={{
+          textAlign: 'center',
+        }}
+        title={rightTitle}
+        onPress={rightOnPress}
+        disabled={disabled}
+      />
     </View>
   );
 };
@@ -67,7 +66,7 @@ FooterButtons70.propTypes = {
   leftOnPress: PropTypes.func,
   rightOnPress: PropTypes.func,
   loading: PropTypes.bool,
-  diasbled: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default FooterButtons70;

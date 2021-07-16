@@ -67,7 +67,7 @@ class AddDetail extends Component {
     const onPressArr = [onDeletePress, onCancelPress, onSavePress];
     return (
       <View style={header}>
-        <View style={{}}>
+        <View >
           <Text>{title}</Text>
         </View>
 
@@ -100,7 +100,7 @@ class AddDetail extends Component {
         />
         <MultipleLines
           style={{marginTop: 24}}
-          inputStyle={{}}
+          input
           value={details}
           onChangeText={(details) => this.onChangeState('details', details)}
           placeholder="Note details"

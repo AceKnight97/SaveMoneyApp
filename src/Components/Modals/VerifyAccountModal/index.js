@@ -71,7 +71,7 @@ const VerifyAccountModal = (props) => {
   };
 
   const renderMainView = () => (
-    <View style={{}}>
+    <View >
       <Text style={header_title}>Verify account</Text>
 
       <View style={main}>

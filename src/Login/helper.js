@@ -70,6 +70,12 @@ export const mutationForgotPassword = async (email = '') => {
 };
 
 export const mutationResetPassword = async (verificationCode = '', password = '') => {
+  // console.log({
+  //   sending: {
+  //     verificationCode,
+  //     password,
+  //   },
+  // });
   try {
     await handleResetPassword({
       verificationCode,

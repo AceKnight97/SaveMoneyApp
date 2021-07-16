@@ -3,6 +3,9 @@ import _ from 'lodash';
 import {Dimensions} from 'react-native';
 import {LinearLib, sortedRaw} from '../Data';
 
+// https://www.flaticon.com/authors/wanicon/flat/4
+// https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0.2&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(105%2C%20195%2C%2074)&crop=0&backgroundShape=circle&effects=none&name=ic_launcher
+
 export const ModelImageActions = {
   SET_IMAGE: 'SET_IMAGE',
   UPDATE_IMAGE: 'UPDATE_IMAGE',
@@ -63,7 +66,6 @@ export const LISTENER_LOADING = 'LISTENER_LOADING';
 export const dummyText =
   'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using  making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).';
 
-const LOCATIONS = 'http://172.93.167.177:3000/';
 
 export const SavePathActions = {
   SET_PATH: 'SET_PATH',

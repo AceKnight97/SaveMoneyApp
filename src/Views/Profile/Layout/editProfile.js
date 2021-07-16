@@ -129,7 +129,7 @@ class EditProfile extends Component {
             <MultipleLines
               style={mt24}
               title="Reason you use this app?"
-              inputStyle={{}}
+              input
               value={reason}
               onChangeText={(x) => this.onChange('reason', x)}
               placeholder="I want to save money for my better future!"

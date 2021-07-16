@@ -44,11 +44,11 @@ const AddMoneyModal = (props) => {
     <View
       style={[
         body_view,
-        cardItem.title === 'Others'
-          ? {
-              height: 500 - 58,
-            }
-          : {},
+        cardItem.title === 'Others' ?
+          {
+            height: 500 - 58,
+          } :
+          {},
       ]}>
       <View>
         {cardItem.title === 'Others' && (
@@ -96,7 +96,7 @@ const AddMoneyModal = (props) => {
 
   const renderMainView = () => (
     <View style={main}>
-      <Text style={header_title}>Header</Text>
+      <Text style={header_title}>{cardItem.title}</Text>
       {renderBody()}
     </View>
   );
@@ -113,12 +113,11 @@ const AddMoneyModal = (props) => {
           <View
             style={[
               mainViewMid,
-              cardItem.title === 'Others'
-                ? {
-                    height: 500,
-                  }
-                : {},
-              ,
+              cardItem.title === 'Others' ?
+                {
+                  height: 500,
+                } :
+                {},,
               style,
             ]}>
             {renderMainView()}

@@ -48,7 +48,7 @@ class EditItemView extends Component {
     const onPressArr = [onCancelPress, onSavePress];
     return (
       <View style={header}>
-        <View style={{}}>
+        <View >
           <Text>{title}</Text>
         </View>
 

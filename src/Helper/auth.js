@@ -16,7 +16,6 @@ const login = async (data) => {
 const getLoginData = async () => {
   const data = await AsyncStorage.getItem(TOKEN_KEY);
   const temp = JSON.parse(data);
-  console.log({temp});
   return temp;
 };
 

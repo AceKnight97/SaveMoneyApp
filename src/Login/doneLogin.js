@@ -33,7 +33,7 @@ class DoneLogin extends Component {
       <View style={{ paddingHorizontal: 24 }}>
         <ButtonCT
           type='ROUND'
-          style={{}}
+          
           title='Back to sign in'
           onPress={() => this.props.navigation.navigate('SignIn')}
         />
@@ -50,13 +50,13 @@ class DoneLogin extends Component {
     return (
       <View style={veriFyCodeMain}>
         <LoginFrame
-          style={{}}
+          
           // showFooter={this.showFooter}
         >
           <View style={{ display: 'flex', flexDirection: 'column' }}>
           <ButtonCT
           type='ROUND'
-          style={{}}
+          
           title="Let's start"
           onPress={() => this.props.navigation.navigate('StackBottomApp')}
         />

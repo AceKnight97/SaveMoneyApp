@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import fetchInsight from '../../Apollo/Functions/Fetch/fetchInsight';
+import auth from '../../Helper/auth';
 
 
 const getSpending = (logs = []) => Math.ceil(_.sumBy(logs, (x) => x.money) * 100) / 100;
@@ -40,7 +41,7 @@ export const queryInsight = async (date = moment().subtract(1, 'months'), isFirs
     });
   }
   const {from, to} = data;
-  console.log({isFirst, from, to});
+  // console.log({isFirst, from, to});
   try {
     const data = await fetchInsight({from, to});
 

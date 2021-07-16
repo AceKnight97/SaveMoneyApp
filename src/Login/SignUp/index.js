@@ -22,10 +22,10 @@ const SignUp = (props) => {
   const nextInput2= useRef(undefined);
   const nextInput3= useRef(undefined);
   const [state, setState] = useMergeState({
-    email: 'asdasd@asdasd.com',
-    password: 'asdasdasdasd',
-    confirmPassword: 'asdasdasdasd',
-    username: 'asdasdasdasd asdasdasdasd',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    username: '',
 
     emailErr: '',
     passwordErr: '',
@@ -44,7 +44,7 @@ const SignUp = (props) => {
   } = state;
 
   const onPressBackToSignIn = () => props.navigation.navigate('SignIn', {
-    signUpData: {
+    passingData: {
       email, password,
     },
   });

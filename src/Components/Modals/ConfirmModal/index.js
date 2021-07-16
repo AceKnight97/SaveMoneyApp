@@ -60,7 +60,7 @@ const ConfirmModal = (props) => {
   }
 
   const renderMainView = () => (
-    <View style={{}}>
+    <View >
       <Text style={header_title}>{title}</Text>
 
       <View style={main}>

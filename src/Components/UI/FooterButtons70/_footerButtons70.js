@@ -5,9 +5,10 @@ const FooterButtons70Style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
   },
   rightBtn: {
-    width: '70%',
+    width: '50%',
     paddingLeft: 24,
   },
 });

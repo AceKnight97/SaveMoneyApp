@@ -68,8 +68,12 @@ const ButtonCT = (props)=> {
       break;
     case 'NONE':
       btnView = noneView;
-      textStyle = noneText;
-      onPressText = {color: green};
+      if (disabled) {
+        textStyle={color: gray3};
+      } else {
+        textStyle = noneText;
+        onPressText = {color: green};
+      }
       break;
     default:
       break;

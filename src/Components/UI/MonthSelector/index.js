@@ -1,22 +1,18 @@
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, View} from 'react-native';
-import IconButton from '../../Buttons/IconButton';
-import MonthSelectorStyle from './_monthSelector';
 import greenLeftIc from '../../../Images/Basic/greenLeft.svg';
 import greenRightIc from '../../../Images/Basic/greenRight.svg';
-// import leftIc from '../../../Images/Basic/left.svg';
+import leftIc from '../../../Images/Basic/left.svg';
 import rightIc from '../../../Images/Basic/right.svg';
-import {useMergeState} from '../../../Helper/customHooks';
-import moment from 'moment';
+import IconButton from '../../Buttons/IconButton';
+import MonthSelectorStyle from './_monthSelector';
 
 const {main, title} = MonthSelectorStyle;
 
 const MonthSelector = (props) => {
-  const [state, setState] = useMergeState({
-    disabled: '',
-  });
-  const {style, selectedMonth, onChange} = props;
+  const {style, selectedMonth, onChange, disabled} = props;
   const countMonth = moment().diff(selectedMonth, 'months');
 
   const customTitle = () => {
@@ -36,8 +32,9 @@ const MonthSelector = (props) => {
 
   return (
     <View style={[main, style]}>
-      <IconButton icon={greenLeftIc}
+      <IconButton icon={disabled?leftIc : greenLeftIc}
         onPress={onPressLeft}
+        disabled={disabled}
       />
 
       <Text style={title} >{customTitle()}</Text>
@@ -52,12 +49,14 @@ const MonthSelector = (props) => {
 MonthSelector.defaultProps = {
   style: {},
   selectedMonth: moment().subtract(1, 'months'),
-  onChange: ()=>{},
+  onChange: () => { },
+  disabled: false,
 };
 MonthSelector.propTypes = {
   style: PropTypes.shape(),
   selectedMonth: PropTypes.shape(),
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default MonthSelector;

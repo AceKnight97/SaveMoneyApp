@@ -50,9 +50,9 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    console.log({
-      back: props.navigation.getParam('back'),
-    });
+    // console.log({
+    //   back: props.navigation.getParam('back'),
+    // });
     fetchUserData();
   }, [props.navigation.getParam('back')]);
 

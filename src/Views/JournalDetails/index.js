@@ -12,7 +12,7 @@ import GlobalStyles from '../../Styles';
 import NewButton from '../../Components/Buttons/NewButton';
 import JournalDetailsStyle from './_journalDetails';
 import {mutationLogs} from './helper';
-import SuccessModal from '../../Components/UI/SuccessPage';
+import SuccessPage from '../../Components/UI/SuccessPage';
 
 const {footer_btns} = JournalDetailsStyle;
 const {f1_wh_100} = GlobalStyles;
@@ -155,7 +155,7 @@ const JournalDetails = (props) => {
     <>
       {
       isSuccess ? (
-        <SuccessModal onClickBack={onPressGoBack} />):(
+        <SuccessPage onClickBack={onPressGoBack} />):(
           <View style={f1_wh_100}>
             <BottomAppHeader
               title={dailyInfo.date}

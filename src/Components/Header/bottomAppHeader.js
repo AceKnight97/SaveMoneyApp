@@ -1,3 +1,4 @@
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
@@ -19,7 +20,7 @@ const BottomAppHeader = (props) => {
     username: '',
     isVerified: false,
   });
-  const {style, currentTab, income, logs, onPress} = props;
+  const {style, currentTab, income, logs, onPress, title} = props;
 
   const fetchGenderName = async () => {
     const {gender, username, isVerified} = await auth.getLoginData();
@@ -68,7 +69,9 @@ const BottomAppHeader = (props) => {
     <View style={[bah_wrapper, style]}>
       <Text style={bah_title} ellipsizeMode='tail'
         numberOfLines={1}
-      >{`Hello ${getName(gender, username)}!`}</Text>
+      >{currentTab === JOURNAL_DETAILS ?
+      moment(title).format('ddd - DD/MM/YY') :
+      `Hello ${getName(gender, username)}!`}</Text>
 
       {renderRightContent()}
     </View>
@@ -86,7 +89,10 @@ BottomAppHeader.defaultProps = {
 BottomAppHeader.propTypes = {
   style: PropTypes.shape(),
   currentTab: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape(),
+  ]),
   logs: PropTypes.arrayOf(PropTypes.shape()),
   income: PropTypes.number,
   onPress: PropTypes.func,
