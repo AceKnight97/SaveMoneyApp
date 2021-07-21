@@ -84,6 +84,7 @@ const ForgotPassword = (props) => {
 
           <View style={lowBody}>
             <ButtonCT
+              disabled={!email}
               type="LINEAR"
               title="Send code"
               onPress={onPressSendCode}

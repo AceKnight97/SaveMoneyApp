@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect, useRef} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
@@ -31,6 +32,10 @@ const SignIn = (props) => {
 
     loading: false,
   });
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   useEffect(() => {
     if (props.login?.isSuccess) {
@@ -81,7 +86,7 @@ const SignIn = (props) => {
     return (
       <View style={{paddingHorizontal: 24}}>
         <ButtonCT
-          disabled={loading}
+          // disabled={loading}
           type="ROUND"
           title="Sign up"
           onPress={navigateSignUp}
@@ -89,7 +94,6 @@ const SignIn = (props) => {
       </View>
     );
   };
-
 
   return (
     <View style={signInMain}>

@@ -37,7 +37,7 @@ const LineChartCT = (props)=> {
 
   return (
     <View>
-      <Text style={title}>Monthly Money Comparation</Text>
+      <Text style={title}>Monthly Money Comparison</Text>
 
       <View style={container}>
         <LineChart

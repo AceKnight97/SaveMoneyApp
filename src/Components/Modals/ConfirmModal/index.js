@@ -83,7 +83,7 @@ const ConfirmModal = (props) => {
   );
   return (
     <Modal
-      onRequestClose={onClickNo}
+      onBackdropPress={onClickNo}
       isVisible={isVisible}
       style={m0}
       backdropOpacity={0.25}>

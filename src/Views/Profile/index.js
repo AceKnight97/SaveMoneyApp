@@ -22,10 +22,8 @@ const {
   profile_wrapper,
   profile_header,
   profile_header_right,
-  profile_change_info,
-  profile_sign_out_btn,
 } = ProfileStyle;
-const {red2, red1} = colors;
+const {red1} = colors;
 
 const Profile = (props) => {
   const [state, setState] = useMergeState({
@@ -56,7 +54,7 @@ const Profile = (props) => {
     fetchUserData();
   }, [props.navigation.getParam('back')]);
 
-  const {patientData, modalInfo, loading, isOpenVerifyModal} = state;
+  const {patientData, loading, isOpenVerifyModal} = state;
 
   const onToggleModal = () =>{
     setState({isOpenVerifyModal: !state.isOpenVerifyModal});
@@ -85,7 +83,6 @@ const Profile = (props) => {
             loading={loading}
             type="danger"
             style={{width: 186}}
-            // style={profile_sign_out_btn}
             UserTextStyle={{color: red1}}
             title="Sign out"
             onPress={logOut}

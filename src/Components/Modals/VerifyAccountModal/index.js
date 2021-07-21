@@ -110,7 +110,7 @@ const VerifyAccountModal = (props) => {
   );
   return (
     <Modal
-      onRequestClose={onClickCancel}
+      onBackdropPress={onClickCancel}
       isVisible={isVisible}
       style={m0}
       backdropOpacity={0.25}>

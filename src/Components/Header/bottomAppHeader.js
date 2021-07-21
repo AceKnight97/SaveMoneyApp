@@ -50,6 +50,9 @@ const BottomAppHeader = (props) => {
       case PROFILE:
         return isVerified? null: (
           <ButtonCT
+            style={{
+              paddingRight: 0,
+            }}
             UserTextStyle={{
               marginRight: -24,
               color: 'red',
@@ -57,6 +60,7 @@ const BottomAppHeader = (props) => {
             type="NONE"
             title="Not verified yet"
             onPress={onPress}
+            isDanger
           />
         );
       default:

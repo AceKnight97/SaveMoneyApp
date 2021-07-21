@@ -62,7 +62,7 @@ class ModalCT extends Component {
   };
 
   render() {
-    const {onRequestClose, type, isVisible} = this.props;
+    const {onBackdropPress, type, isVisible} = this.props;
     let view = this.showBottom();
     switch (type) {
       case 'MIDLE':
@@ -74,12 +74,12 @@ class ModalCT extends Component {
 
     return (
       <Modal
-        onRequestClose={onRequestClose}
+        onBackdropPress={onBackdropPress}
         isVisible={isVisible}
         style={{margin: 0}}
         backdropOpacity={0.25}>
         <TouchableWithoutFeedback
-          style={{ flex: 1 }} onPress={onRequestClose}
+          style={{ flex: 1 }} onPress={onBackdropPress}
           onPressIn={()=>{console.log('onPressIn')}}>
           {view}
         </TouchableWithoutFeedback>
@@ -91,12 +91,12 @@ class ModalCT extends Component {
 ModalCT.defaultProps = {
   children: {},
   isVisible: false,
-  onRequestClose: ()=>{}
+  onBackdropPress: ()=>{}
 };
 ModalCT.propTypes = {
   children: PropTypes.shape(),
   isVisible: PropTypes.bool,
-  onRequestClose: PropTypes.func,
+  onBackdropPress: PropTypes.func,
 };
 
 export default ModalCT;

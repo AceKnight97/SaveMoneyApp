@@ -103,28 +103,28 @@ const AddMoneyModal = (props) => {
 
   return (
     <Modal
-      onRequestClose={onClickCancel}
+      onBackdropPress={onClickCancel}
       isVisible={!_.isEmpty(cardItem)}
-      style={{margin: 0}}
+      style={{
+        margin: 0,
+      }}
       backdropOpacity={0.25}>
-      <TouchableWithoutFeedback style={f_1} onPress={onClickCancel}>
-        <View style={centerC1}>
-          <View style={f_1} />
-          <View
-            style={[
-              mainViewMid,
+      <View style={centerC1}>
+        <View style={f_1} />
+        <View
+          style={[
+            mainViewMid,
               cardItem.title === 'Others' ?
                 {
                   height: 500,
                 } :
                 {},,
-              style,
-            ]}>
-            {renderMainView()}
-          </View>
-          <View style={f_1} />
+            style,
+          ]}>
+          {renderMainView()}
         </View>
-      </TouchableWithoutFeedback>
+        <View style={f_1} />
+      </View>
     </Modal>
   );
 };

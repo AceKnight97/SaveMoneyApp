@@ -58,26 +58,26 @@ class EditProfile extends Component {
   onChange = (key, value) => this.setState({[key]: value});
 
   showModal = () => {
-    const onRequestClose = () => this.setState({cur: ''});
+    const onBackdropPress = () => this.setState({cur: ''});
     const {cur} = this.state;
     if (cur === 'Date of birth')
       return (
-        <ModalCT isVisible={!!cur} onRequestClose={onRequestClose}>
+        <ModalCT isVisible={!!cur} onBackdropPress={onBackdropPress}>
           <EditItemView
             isDob
             title={cur}
             onSavePress={(x) => this.setState({dob: x})}
-            onCancelPress={onRequestClose}
+            onCancelPress={onBackdropPress}
           />
         </ModalCT>
       );
     const keyVal = cur.toLocaleLowerCase();
     return (
-      <ModalCT isVisible={!!cur} onRequestClose={onRequestClose}>
+      <ModalCT isVisible={!!cur} onBackdropPress={onBackdropPress}>
         <EditItemView
           title={cur}
           onSavePress={(x) => this.setState({[keyVal]: x})}
-          onCancelPress={onRequestClose}
+          onCancelPress={onBackdropPress}
         />
       </ModalCT>
     );

@@ -70,6 +70,9 @@ const ButtonCT = (props)=> {
       btnView = noneView;
       if (disabled) {
         textStyle={color: gray3};
+      } else if (isDanger) {
+        textStyle = {color: red2};
+        onPressText = {color: red2};
       } else {
         textStyle = noneText;
         onPressText = {color: green};
